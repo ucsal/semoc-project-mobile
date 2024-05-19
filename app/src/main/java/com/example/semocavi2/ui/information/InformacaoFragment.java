@@ -1,4 +1,4 @@
-package com.example.semocavi2.ui.minicurso;
+package com.example.semocavi2.ui.information;
 
 import androidx.lifecycle.ViewModelProvider;
 
@@ -13,31 +13,25 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.semocavi2.R;
-import com.example.semocavi2.adapters.MinicursoAdapter;
 
-import java.util.List;
+public class InformacaoFragment extends Fragment {
 
-public class MiniCursoFragment extends Fragment {
+    private InformacaoViewModel mViewModel;
 
-    private MiniCursoViewModel mViewModel;
-//    private RecyclerView recyclerView;
-    private MinicursoAdapter adapter;
-    private List<MiniCursoViewModel> minicursoList;
-
-    public static MiniCursoFragment newInstance() {
-        return new MiniCursoFragment();
+    public static InformacaoFragment newInstance() {
+        return new InformacaoFragment();
     }
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_mini_curso, container, false);
+        return inflater.inflate(R.layout.fragment_informacao, container, false);
     }
 
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        mViewModel = new ViewModelProvider(this).get(MiniCursoViewModel.class);
+        mViewModel = new ViewModelProvider(this).get(InformacaoViewModel.class);
         // TODO: Use the ViewModel
     }
 

@@ -1,8 +1,8 @@
 package com.example.semocavi2.service;
 
-import com.example.semocavi2.models.MiniCurso;
-import com.example.semocavi2.models.Palestra;
-import com.example.semocavi2.models.Pessoa;
+import com.example.semocavi2.ui.minicurso.MiniCursoViewModel;
+import com.example.semocavi2.ui.palestra.PalestraViewModel;
+import com.example.semocavi2.ui.pessoa.PessoaViewModel;
 
 import java.util.List;
 
@@ -11,11 +11,11 @@ import retrofit2.http.GET;
 
 public interface SemocApiService {
     @GET("minicursos.json")
-    Call<List<MiniCurso>> getMinicursos();
+    Call<List<MiniCursoViewModel>> getMinicursos();
 
     @GET("palestras.json")
-    Call<List<Palestra>> getPalestras();
+    Call<List<PalestraViewModel>> getPalestras();
 
     @GET("pessoas.json")
-    Call<List<Pessoa>> getPessoas();
+    Call<List<PessoaViewModel>> getPessoas();
 }
