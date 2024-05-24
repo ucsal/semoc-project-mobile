@@ -28,11 +28,5 @@ public class PalestraFragment extends Fragment {
         return inflater.inflate(R.layout.fragment_palestra, container, false);
     }
 
-    @Override
-    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
-        mViewModel = new ViewModelProvider(this).get(PalestraViewModel.class);
-        // TODO: Use the ViewModel
-    }
 
 }

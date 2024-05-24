@@ -1,99 +1,137 @@
 package com.example.semocavi2.ui.minicurso;
 
 import androidx.lifecycle.ViewModel;
+import androidx.room.ColumnInfo;
+import androidx.room.Entity;
+import androidx.room.Index;
+import androidx.room.PrimaryKey;
 
+import com.google.gson.annotations.SerializedName;
+
+@Entity(tableName = "tb_mini_cursos", indices = @Index(value = {"id"}, unique = true))
 public class MiniCursoViewModel extends ViewModel {
+    @PrimaryKey(autoGenerate = true)
 
-        private int id;
-        private String nome;
-        private String descricao;
-        private String data;
-        private String hora;
-        private String local;
-        private int instrutor_id;
-        private String tema;
-        private String nivel;
-        private String formato;
+    @SerializedName("id")
+    @ColumnInfo(name = "id")
+    private int id;
+    @SerializedName("nome")
+    @ColumnInfo(name = "nome")
+    private String nome;
 
-        public int getId() {
-            return id;
-        }
+    @SerializedName("descricao")
+    @ColumnInfo(name = "descricao")
+    private String descricao;
 
-        public void setId(int id) {
-            this.id = id;
-        }
+    @SerializedName("data")
+    @ColumnInfo(name = "data")
+    private String data;
 
-        public String getNome() {
-            return nome;
-        }
+    @SerializedName("hora")
+    @ColumnInfo(name = "hora")
+    private String hora;
 
-        public void setNome(String nome) {
-            this.nome = nome;
-        }
+    @SerializedName("local")
+    @ColumnInfo(name = "local")
+    private String local;
 
-        public String getDescricao() {
-            return descricao;
-        }
+    // fazer um pessoa dot get by id na hora que for listar esse cara. vai ser mais facil assim, por favor nao me julgue, se for pra fazer algo comigo que seja sexo
+    @SerializedName("instrutor_id")
+    @ColumnInfo(name = "instrutor_id")
+    private int instrutorId;
 
-        public void setDescricao(String descricao) {
-            this.descricao = descricao;
-        }
+    @SerializedName("tema")
+    @ColumnInfo(name = "tema")
+    private String tema;
 
-        public String getData() {
-            return data;
-        }
+    @SerializedName("nivel")
+    @ColumnInfo(name = "nivel")
+    private String nivel;
 
-        public void setData(String data) {
-            this.data = data;
-        }
+    @SerializedName("formato")
+    @ColumnInfo(name = "formato")
+    private String formato;
 
-        public String getHora() {
-            return hora;
-        }
 
-        public void setHora(String hora) {
-            this.hora = hora;
-        }
+    public int getId() {
+        return id;
+    }
 
-        public String getLocal() {
-            return local;
-        }
+    public void setId(int id) {
+        this.id = id;
+    }
 
-        public void setLocal(String local) {
-            this.local = local;
-        }
+    public String getNome() {
+        return nome;
+    }
 
-        public int getInstrutor_id() {
-            return instrutor_id;
-        }
+    public void setNome(String nome) {
+        this.nome = nome;
+    }
 
-        public void setInstrutor_id(int instrutor_id) {
-            this.instrutor_id = instrutor_id;
-        }
+    public String getDescricao() {
+        return descricao;
+    }
 
-        public String getTema() {
-            return tema;
-        }
+    public void setDescricao(String descricao) {
+        this.descricao = descricao;
+    }
 
-        public void setTema(String tema) {
-            this.tema = tema;
-        }
+    public String getData() {
+        return data;
+    }
 
-        public String getNivel() {
-            return nivel;
-        }
+    public void setData(String data) {
+        this.data = data;
+    }
 
-        public void setNivel(String nivel) {
-            this.nivel = nivel;
-        }
+    public String getHora() {
+        return hora;
+    }
 
-        public String getFormato() {
-            return formato;
-        }
+    public void setHora(String hora) {
+        this.hora = hora;
+    }
 
-        public void setFormato(String formato) {
-            this.formato = formato;
-        }
+    public String getLocal() {
+        return local;
+    }
+
+    public void setLocal(String local) {
+        this.local = local;
+    }
+
+    public int getInstrutorId() {
+        return instrutorId;
+    }
+
+    public void setInstrutorId(int instrutor_id) {
+        this.instrutorId = instrutor_id;
+    }
+
+    public String getTema() {
+        return tema;
+    }
+
+    public void setTema(String tema) {
+        this.tema = tema;
+    }
+
+    public String getNivel() {
+        return nivel;
+    }
+
+    public void setNivel(String nivel) {
+        this.nivel = nivel;
+    }
+
+    public String getFormato() {
+        return formato;
+    }
+
+    public void setFormato(String formato) {
+        this.formato = formato;
+    }
 
 
 

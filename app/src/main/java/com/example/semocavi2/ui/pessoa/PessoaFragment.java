@@ -28,11 +28,5 @@ public class PessoaFragment extends Fragment {
         return inflater.inflate(R.layout.fragment_pessoa, container, false);
     }
 
-    @Override
-    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
-        mViewModel = new ViewModelProvider(this).get(PessoaViewModel.class);
-        // TODO: Use the ViewModel
-    }
 
 }

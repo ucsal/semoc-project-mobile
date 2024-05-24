@@ -28,11 +28,6 @@ public class InformacaoFragment extends Fragment {
         return inflater.inflate(R.layout.fragment_informacao, container, false);
     }
 
-    @Override
-    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
-        mViewModel = new ViewModelProvider(this).get(InformacaoViewModel.class);
-        // TODO: Use the ViewModel
-    }
+
 
 }

@@ -1,7 +1,5 @@
 package com.example.semocavi2.ui.minicurso;
 
-import androidx.lifecycle.ViewModelProvider;
-
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -13,7 +11,6 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.semocavi2.R;
-import com.example.semocavi2.adapters.MinicursoAdapter;
 
 import java.util.List;
 
@@ -21,7 +18,6 @@ public class MiniCursoFragment extends Fragment {
 
     private MiniCursoViewModel mViewModel;
 //    private RecyclerView recyclerView;
-    private MinicursoAdapter adapter;
     private List<MiniCursoViewModel> minicursoList;
 
     public static MiniCursoFragment newInstance() {
@@ -34,11 +30,6 @@ public class MiniCursoFragment extends Fragment {
         return inflater.inflate(R.layout.fragment_mini_curso, container, false);
     }
 
-    @Override
-    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
-        mViewModel = new ViewModelProvider(this).get(MiniCursoViewModel.class);
-        // TODO: Use the ViewModel
-    }
+
 
 }
