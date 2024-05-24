@@ -5,6 +5,10 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModel;
+import androidx.lifecycle.ViewModelProvider;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -12,21 +16,15 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.semocavi2.R;
+import com.example.semocavi2.adapters.MiniCursoAdapter;
 import com.example.semocavi2.client.RetrofitClient;
 import com.example.semocavi2.database.SemocAppDB;
-import com.example.semocavi2.models.MiniCursoModel;
 import com.example.semocavi2.service.SemocApiService;
 
-import java.util.List;
-
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
-
 public class MiniCursoFragment extends Fragment {
-    private SemocAppDB dataBase;
     private SemocApiService semocApiService;
     private MiniCursoViewModel mViewModel;
+    private MiniCursoAdapter adapter;
 
     public static MiniCursoFragment newInstance() {
         return new MiniCursoFragment();
@@ -37,34 +35,32 @@ public class MiniCursoFragment extends Fragment {
                              @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_mini_curso, container, false);
 
-        dataBase = SemocAppDB.getInstance(requireContext());
+        // Inicialize o RecyclerView e o Adapter
+        RecyclerView recyclerView = view.findViewById(R.id.recycler_view_minicursos);
+        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+        adapter = new MiniCursoAdapter();
+        recyclerView.setAdapter(adapter);
+        SemocAppDB dataBase = SemocAppDB.getInstance(requireContext());
         semocApiService = RetrofitClient.getClient().create(SemocApiService.class);
-        getAndSaveMinicursos();
+
+        mViewModel = new ViewModelProvider(this, new ViewModelProvider.Factory() {
+            @NonNull
+            @Override
+            public <T extends ViewModel> T create(@NonNull Class<T> modelClass) {
+                if (modelClass.isAssignableFrom(MiniCursoViewModel.class)) {
+                    return (T) new MiniCursoViewModel(semocApiService, dataBase);
+                }
+                throw new IllegalArgumentException("Unknown ViewModel class");
+            }
+        }).get(MiniCursoViewModel.class);
+
+        // Observar o LiveData dos minicursos
+        mViewModel.getMinicursos().observe(getViewLifecycleOwner(), minicursos -> {
+            adapter.setMinicursoList(minicursos);
+            Log.d("Database", "Minicursos carregados: " + minicursos.size());
+
+        });
 
         return view;
-    }
-
-    private void getAndSaveMinicursos() {
-        semocApiService.getMinicursos().enqueue(new Callback<List<MiniCursoModel>>() {
-            @Override
-            public void onResponse(Call<List<MiniCursoModel>> call, Response<List<MiniCursoModel>> response) {
-                if (response.isSuccessful()) {
-                    List<MiniCursoModel> minicursos = response.body();
-                    if (minicursos != null && !minicursos.isEmpty()) {
-                        new Thread(() -> {
-                            dataBase.minicursoDao().insert(minicursos);
-                            Log.d("Database", "Minicursos salvos no banco de dados");
-                        }).start();
-                    }
-                } else {
-                    Log.e("API Error", "Erro na resposta da API: " + response.message());
-                }
-            }
-
-            @Override
-            public void onFailure(Call<List<MiniCursoModel>> call, Throwable t) {
-                Log.e("API Failure", "Falha na requisição: " + t.getMessage());
-            }
-        });
     }
 }
