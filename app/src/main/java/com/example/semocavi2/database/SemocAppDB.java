@@ -22,7 +22,7 @@ public abstract class SemocAppDB extends RoomDatabase {
             synchronized (SemocAppDB.class) {
                 if (INSTANCE == null) {
                     INSTANCE = Room.databaseBuilder(context.getApplicationContext(),
-                                    SemocAppDB.class, "semoc_database")
+                                    SemocAppDB.class, "semoc_database").allowMainThreadQueries()
                             .build();
                 }
             }
