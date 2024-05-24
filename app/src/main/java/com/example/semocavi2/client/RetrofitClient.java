@@ -7,20 +7,13 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class RetrofitClient {
 
-    public static Retrofit getClient() {
+            private static final String BASE_URL = "https://raw.githubusercontent.com/ucsal/semoc/main/api/";
 
-        Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("Retrofit retrofit = new Retrofit.Builder()\n" +
-                        "    .baseUrl(\"https://raw.githubusercontent.com/ucsal/semoc/main/api/\")\n" +
-                        "    .build();\n" +
-                        "\n" +
-                        "SemocApiService service = retrofit.create(SemocApiService.class);")
-                .build();
-        //isso aqui acho q pode dar ruim, mas veremos
-        if (retrofit == null) {
-         getClient();
-        }
+            public static Retrofit getClient() {
+                return new Retrofit.Builder()
+                        .baseUrl(BASE_URL)
+                        .addConverterFactory(GsonConverterFactory.create())
+                        .build();
+            }
 
-        return retrofit;
     }
-}
