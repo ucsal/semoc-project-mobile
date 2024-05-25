@@ -4,15 +4,20 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.navigation.NavController;
+import androidx.navigation.Navigation;
 
 import com.example.semocavi2.R;
 import com.example.semocavi2.databinding.FragmentHomeBinding;
+import com.example.semocavi2.ui.minicurso.MiniCursoFragment;
 
 public class HomeFragment extends Fragment {
 
@@ -21,7 +26,20 @@ public class HomeFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_mini_curso, container, false);
+
+      View view =  inflater.inflate(R.layout.fragment_home, container, false);
+
+        ImageView minicursos = view.findViewById(R.id.minicursos);
+        minicursos.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                NavController navController = Navigation.findNavController(v);
+                navController.navigate(R.id.navigation_minicursos);
+            }
+        });
+
+        return view;
     }
     @Override
     public void onDestroyView() {

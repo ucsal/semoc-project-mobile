@@ -11,7 +11,7 @@ import retrofit2.Call;
 import retrofit2.http.GET;
 
 public interface SemocApiService {
-    @GET("minicursos.json")
+    @GET("/minicursos.json")
     Call<List<MiniCursoModel>> getMinicursos();
 
 //    @GET("palestras.json")

@@ -17,6 +17,13 @@
         android:name="com.example.semocavi2.ui.notifications.NotificationsFragment"
         android:label="@string/title_notifications"
         tools:layout="@layout/fragment_notifications" />
+
+
+    <fragment
+        android:id="@+id/navigation_minicursos"
+        android:name="com.example.semocavi2.ui.minicurso.MiniCursoFragment"
+        android:label="@string/tittle_minicursos"
+        tools:layout="@layout/fragment_mini_curso" />
     <fragment
     android:id="@+id/navigation_information"
     android:name="com.example.semocavi2.ui.information.InformacaoFragment"
