@@ -18,7 +18,9 @@ import android.view.ViewGroup;
 import com.example.semocavi2.R;
 import com.example.semocavi2.adapters.MiniCursoAdapter;
 import com.example.semocavi2.client.RetrofitClient;
+import com.example.semocavi2.dao.MiniCursosDao;
 import com.example.semocavi2.database.SemocAppDB;
+import com.example.semocavi2.repo.MiniCursoRepository;
 import com.example.semocavi2.service.SemocApiService;
 
 public class MiniCursoFragment extends Fragment {
@@ -40,15 +42,17 @@ public class MiniCursoFragment extends Fragment {
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         adapter = new MiniCursoAdapter();
         recyclerView.setAdapter(adapter);
-        SemocAppDB dataBase = SemocAppDB.getInstance(requireContext());
-        semocApiService = RetrofitClient.getClient().create(SemocApiService.class);
+        SemocAppDB database = SemocAppDB.getInstance(requireContext());
+        SemocApiService semocApiService = RetrofitClient.getClient().create(SemocApiService.class);
+        MiniCursosDao miniCursosDao = database.minicursoDao();
+        MiniCursoRepository repository = new MiniCursoRepository(semocApiService, miniCursosDao);
 
         mViewModel = new ViewModelProvider(this, new ViewModelProvider.Factory() {
             @NonNull
             @Override
             public <T extends ViewModel> T create(@NonNull Class<T> modelClass) {
                 if (modelClass.isAssignableFrom(MiniCursoViewModel.class)) {
-                    return (T) new MiniCursoViewModel(semocApiService, dataBase);
+                    return (T) new MiniCursoViewModel(repository);
                 }
                 throw new IllegalArgumentException("Unknown ViewModel class");
             }

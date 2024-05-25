@@ -21,6 +21,10 @@ public interface MiniCursosDao {
         @Query("SELECT * FROM tb_mini_cursos")
         LiveData<List<MiniCursoModel>> getMinicursos();
 
+        //verificar o numero de registros na tabela
+        @Query("SELECT COUNT(*) FROM tb_mini_cursos")
+        int getCount();
+
 
 
 }
