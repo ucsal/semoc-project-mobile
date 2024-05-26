@@ -23,35 +23,36 @@
 
     <!-- ImageViews nos quadrantes -->
 
+    <!--    ajeitei as posicoes meio no olho, mas acho q ta baum-->
+
     <ImageView
 
         android:id="@+id/seminarios"
-        android:layout_width="173dp"
-        android:layout_height="160dp"
+        android:layout_width="151dp"
+        android:layout_height="152dp"
         android:clickable="true"
         app:layout_constraintBottom_toTopOf="@id/guideline_horizontal_50"
         app:layout_constraintDimensionRatio="1:1"
         app:layout_constraintEnd_toStartOf="@id/guideline_vertical_50"
-        app:layout_constraintHorizontal_bias="0.551"
+        app:layout_constraintHorizontal_bias="0.529"
         app:layout_constraintStart_toStartOf="parent"
 
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.912"
-        app:srcCompat="@drawable/img_1" />
+        app:layout_constraintVertical_bias="0.53"
+        app:srcCompat="@drawable/img" />
 
     <ImageView
         android:id="@+id/minicursos"
-        android:layout_width="173dp"
-        android:layout_height="160dp"
-
+        android:layout_width="151dp"
+        android:layout_height="152dp"
         android:clickable="true"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintDimensionRatio="1:1"
+        app:layout_constraintBottom_toTopOf="@+id/guideline_horizontal_50"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.555"
-        app:layout_constraintStart_toEndOf="@id/guideline_vertical_50"
-        app:layout_constraintTop_toBottomOf="@id/guideline_horizontal_50"
-        app:layout_constraintVertical_bias="0.112"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/seminarios"
+        app:layout_constraintStart_toStartOf="@+id/guideline_vertical_50"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.53"
         app:srcCompat="@drawable/img_2" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

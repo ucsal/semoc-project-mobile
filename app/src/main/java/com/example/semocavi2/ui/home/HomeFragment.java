@@ -10,6 +10,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
@@ -23,11 +24,12 @@ public class HomeFragment extends Fragment {
 
     private FragmentHomeBinding binding;
 
-    @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
-                             @Nullable Bundle savedInstanceState) {
 
-      View view =  inflater.inflate(R.layout.fragment_home, container, false);
+    @Nullable
+    @Override
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        View view = inflater.inflate(R.layout.fragment_home, container, false);
+
 
         ImageView minicursos = view.findViewById(R.id.minicursos);
         minicursos.setOnClickListener(new View.OnClickListener() {
@@ -35,12 +37,15 @@ public class HomeFragment extends Fragment {
             public void onClick(View v) {
 
                 NavController navController = Navigation.findNavController(v);
+                // esse cara limpa a stack de navegacao e dps muda para o minicuros fragment, dessa forma a gente pode voltar para o hoem sem pr
+
                 navController.navigate(R.id.navigation_minicursos);
             }
         });
 
         return view;
     }
+
     @Override
     public void onDestroyView() {
         super.onDestroyView();

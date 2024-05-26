@@ -2,6 +2,7 @@ package com.example.semocavi2;
 
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Window;
 
 import com.example.semocavi2.client.RetrofitClient;
 import com.example.semocavi2.database.SemocAppDB;
@@ -38,12 +39,12 @@ public class MainActivity extends AppCompatActivity {
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
-
+        getSupportActionBar().hide();
 
         BottomNavigationView navView = findViewById(R.id.nav_view);
 
         AppBarConfiguration appBarConfiguration = new AppBarConfiguration.Builder(
-                R.id.navigation_home, R.id.navigation_information, R.id.navigation_notifications, R.id.navigation_minicursos)
+                R.id.navigation_home, R.id.navigation_information, R.id.navigation_notifications)
                 .build();
 
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_activity_main);
