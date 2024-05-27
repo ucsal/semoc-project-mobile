@@ -29,7 +29,9 @@ public class MiniCursoRepository {
 
     }
 
-
+    public LiveData<List<MiniCursoModel>> getMinicursosByDate(String date) {
+        return miniCursosDao.getMinicursosByDate(date);
+    }
 
     // it wokrs, verifica a quantidade de registros no db,
     private void refreshMinicursosIfNecessary() {

@@ -22,6 +22,12 @@ public class MiniCursoViewModel extends ViewModel {
         public LiveData<List<MiniCursoModel>> getMinicursos() {
             return minicursosLiveData;
         }
+
+
+
+    public LiveData<List<MiniCursoModel>> getMinicursosByDate(String date) {
+        return repository.getMinicursosByDate(date);
+    }
     }
 
 

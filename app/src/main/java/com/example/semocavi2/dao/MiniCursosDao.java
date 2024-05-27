@@ -24,6 +24,10 @@ public interface MiniCursosDao {
         @Query("SELECT COUNT(*) FROM tb_mini_cursos")
         int getCount();
 
+        @Query("SELECT * FROM tb_mini_cursos WHERE data = :data")
+        LiveData<List<MiniCursoModel>> getMinicursosByDate(String data);
+
+
 
 
 }

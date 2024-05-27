@@ -72,8 +72,13 @@ public class MiniCursoFragment extends Fragment {
         MaterialToolbar materialToolbar = view.findViewById(R.id.materialToolbar);
 //        EditText editTextDate = view.findViewById(R.id.editTextDate);
 
+        // ajeitando o RecyclerView e o Adapter
+        RecyclerView recyclerView = view.findViewById(R.id.recycler_view_minicursos);
+        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+        adapter = new MiniCursoAdapter();
 
 
+        recyclerView.setAdapter(adapter);
         editTextDate = view.findViewById(R.id.editTextDate);
         textView = view.findViewById(R.id.textView);
 
@@ -92,16 +97,27 @@ public class MiniCursoFragment extends Fragment {
                             public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
                                 // Format date as dd/mm/yyyy
                                 String selectedDate = String.format("%02d/%02d/%04d", dayOfMonth, monthOfYear + 1, year);
-                                String selectedDateToQuery = String.format("%02d-%02d-%04d", dayOfMonth, monthOfYear + 1, year);
+                                String selectedDateToQuery = String.format("%04d-%02d-%02d", year, monthOfYear + 1, dayOfMonth);
+                                Log.d("data value",selectedDateToQuery);
+
                                 editTextDate.setText(selectedDate);
+                                filterMinicursosByDate(selectedDateToQuery);
                             }
                         }, mYear, mMonth, mDay);
 
                 datePickerDialog.setButton(DatePickerDialog.BUTTON_NEUTRAL, "Clear Date", (dialog, which) -> {
                     editTextDate.setText("");
+
                     dialog.dismiss();
+
+
                 });
                 datePickerDialog.show();
+
+
+
+
+
             }
         });
 
@@ -169,11 +185,7 @@ public class MiniCursoFragment extends Fragment {
         });
 
 
-        // ajeitando o RecyclerView e o Adapter
-        RecyclerView recyclerView = view.findViewById(R.id.recycler_view_minicursos);
-        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-        adapter = new MiniCursoAdapter();
-        recyclerView.setAdapter(adapter);
+
 
         DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(recyclerView.getContext(), DividerItemDecoration.VERTICAL);
         recyclerView.addItemDecoration(dividerItemDecoration);
@@ -206,7 +218,22 @@ public class MiniCursoFragment extends Fragment {
 
         });
 
+
         return view;
+    }
+
+    private void filterMinicursosByDate(String selectedDate) {
+        mViewModel.getMinicursosByDate(selectedDate).observe(getViewLifecycleOwner(), minicursos -> {
+            adapter.setMinicursoList(minicursos);
+            Log.d("Database", "Minicursos filtrados por data: " + minicursos.size());
+        });
+    }
+
+    private void loadAllMinicursos() {
+        mViewModel.getMinicursos().observe(getViewLifecycleOwner(), minicursos -> {
+            adapter.setMinicursoList(minicursos);
+            Log.d("Database", "Todos os minicursos carregados: " + minicursos.size());
+        });
     }
 }
 // emanuel gameplays, queria muito ta jogando lol agora mas n posso
