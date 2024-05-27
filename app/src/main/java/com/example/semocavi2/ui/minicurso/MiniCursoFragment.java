@@ -95,6 +95,11 @@ public class MiniCursoFragment extends Fragment {
                                 editTextDate.setText(selectedDate);
                             }
                         }, mYear, mMonth, mDay);
+
+                datePickerDialog.setButton(DatePickerDialog.BUTTON_NEUTRAL, "Clear Date", (dialog, which) -> {
+                    editTextDate.setText("");
+                    dialog.dismiss();
+                });
                 datePickerDialog.show();
             }
         });
