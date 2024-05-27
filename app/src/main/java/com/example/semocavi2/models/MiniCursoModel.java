@@ -1,6 +1,5 @@
 package com.example.semocavi2.models;
 
-import androidx.lifecycle.ViewModel;
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.Index;

@@ -21,7 +21,7 @@ public class MiniCursoRepository {
     private MiniCursosDao miniCursosDao;
     private ExecutorService executor;
 
-
+// acho que seria legal aplicar aquea logica de verificacao de versao de db que mario passou em sala
     public MiniCursoRepository(SemocApiService semocApiService, MiniCursosDao miniCursosDao) {
         this.semocApiService = semocApiService;
         this.miniCursosDao = miniCursosDao;
@@ -29,24 +29,28 @@ public class MiniCursoRepository {
 
     }
 
-    // meio falho isso aqui, mas apenas para efeito da atividade irei manter
+
+
+    // it wokrs, verifica a quantidade de registros no db,
     private void refreshMinicursosIfNecessary() {
         executor.execute(() -> {
             int count = miniCursosDao.getCount();
             if (count == 0) {
                 refreshMinicursos();
+            }else {
+                Log.d("api", "refresh n necessario");
+
             }
         });
     }
 
     public LiveData<List<MiniCursoModel>> getMinicursos() {
         refreshMinicursosIfNecessary();
-        Log.d("api", "refresh n necessario");
         return miniCursosDao.getMinicursos();
     }
 
     private void refreshMinicursos() {
-        Log.d("api", "refresh minicursos da api");
+        Log.d("api", "refresh minicursos da api necessario");
 
         semocApiService.getMinicursos().enqueue(new Callback<List<MiniCursoModel>>() {
             @Override
@@ -54,10 +58,11 @@ public class MiniCursoRepository {
                 if (response.isSuccessful()) {
                     new Thread(() -> {
                         miniCursosDao.insert(response.body());
+                        Log.d("response DB",response.toString());
                     }).start();
                 } else {
-                    // Trate erros de resposta da API aqui
-                }
+
+Log.d("response DB error",response.toString());                }
             }
 
             @Override

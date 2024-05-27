@@ -1,13 +1,7 @@
 package com.example.semocavi2;
 
 import android.os.Bundle;
-import android.util.Log;
-import android.view.Window;
 
-import com.example.semocavi2.client.RetrofitClient;
-import com.example.semocavi2.database.SemocAppDB;
-import com.example.semocavi2.models.MiniCursoModel;
-import com.example.semocavi2.service.SemocApiService;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -17,13 +11,7 @@ import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
 import com.example.semocavi2.databinding.ActivityMainBinding;
-import com.google.gson.Gson;
 
-import java.util.List;
-
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 
 public class MainActivity extends AppCompatActivity {
 // esse cara foi de um template do android studio
@@ -42,7 +30,7 @@ public class MainActivity extends AppCompatActivity {
         getSupportActionBar().hide();
 
         BottomNavigationView navView = findViewById(R.id.nav_view);
-
+// esses caras sao estao sendo configurados apenas para a botton navbar
         AppBarConfiguration appBarConfiguration = new AppBarConfiguration.Builder(
                 R.id.navigation_home, R.id.navigation_information, R.id.navigation_notifications)
                 .build();

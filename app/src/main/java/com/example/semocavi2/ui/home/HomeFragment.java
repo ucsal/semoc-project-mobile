@@ -31,7 +31,16 @@ public class HomeFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_home, container, false);
 
 
-        ImageView minicursos = view.findViewById(R.id.minicursos);
+        ImageView minicursos = view.findViewById(R.id.navigation_minicursos);
+        ImageView palestras = view.findViewById(R.id.navigation_palestras);
+
+        palestras.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                NavController navController = Navigation.findNavController(v);
+                navController.navigate(R.id.navigation_palestras);
+            }
+        });
         minicursos.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

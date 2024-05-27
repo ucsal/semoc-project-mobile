@@ -27,7 +27,7 @@
 
     <ImageView
 
-        android:id="@+id/seminarios"
+        android:id="@+id/navigation_palestras"
         android:layout_width="151dp"
         android:layout_height="152dp"
         android:clickable="true"
@@ -36,20 +36,19 @@
         app:layout_constraintEnd_toStartOf="@id/guideline_vertical_50"
         app:layout_constraintHorizontal_bias="0.529"
         app:layout_constraintStart_toStartOf="parent"
-
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.53"
         app:srcCompat="@drawable/img" />
 
     <ImageView
-        android:id="@+id/minicursos"
+        android:id="@+id/navigation_minicursos"
         android:layout_width="151dp"
         android:layout_height="152dp"
         android:clickable="true"
         app:layout_constraintBottom_toTopOf="@+id/guideline_horizontal_50"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/seminarios"
+        app:layout_constraintStart_toEndOf="@+id/navigation_palestras"
         app:layout_constraintStart_toStartOf="@+id/guideline_vertical_50"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.53"

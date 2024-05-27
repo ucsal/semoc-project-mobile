@@ -10,6 +10,7 @@ import com.example.semocavi2.service.SemocApiService;
 
 import java.util.List;
 import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -21,10 +22,11 @@ public class PalestraRepository {
     private PalestraDao palestraDao;
     private ExecutorService executor;
 
-    public PalestraRepository(SemocApiService semocApiService, PalestraDao palestraDao, ExecutorService executorService) {
+    public PalestraRepository(SemocApiService semocApiService, PalestraDao palestraDao) {
         this.semocApiService = semocApiService;
         this.palestraDao = palestraDao;
-        this.executor = executorService;
+        // feito para executar dentro de uma thread separada, eu acho, e o que diz no nome
+        this.executor = Executors.newSingleThreadExecutor();
     }
 
     // meio falho isso aqui, mas apenas para efeito da atividade irei manter

@@ -1,6 +1,7 @@
 package com.example.semocavi2.dao;
 
 import androidx.lifecycle.LiveData;
+import androidx.room.Dao;
 import androidx.room.Insert;
 import androidx.room.OnConflictStrategy;
 import androidx.room.Query;
@@ -9,6 +10,7 @@ import com.example.semocavi2.models.PalestraModel;
 
 import java.util.List;
 
+@Dao
 public interface PalestraDao {
 
     // esse cara vai dar um replace nos caras igual( eu acho), se n a gente ajeita dps, n tiira ponto mario pf

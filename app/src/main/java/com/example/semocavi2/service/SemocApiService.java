@@ -9,7 +9,8 @@ import retrofit2.Call;
 import retrofit2.http.GET;
 
 public interface SemocApiService {
-    @GET("/minicursos.json")
+    // por causa de uma barra tava dando erro vei, nao colocar barra no noem
+    @GET("minicursos.json")
     Call<List<MiniCursoModel>> getMinicursos();
 
     @GET("palestras.json")

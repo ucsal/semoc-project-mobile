@@ -1,3 +1,5 @@
+//@emanuel3queijos
+
 package com.example.semocavi2.ui.minicurso;
 
 import android.os.Bundle;
@@ -45,7 +47,9 @@ public class MiniCursoFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
+        // vou inflar o layour dps de ajeitar tudo, acho que pode quebrar alguma coisa se der errado
         View view = inflater.inflate(R.layout.fragment_mini_curso, container, false);
+
 
 
         // n sei pq agora ta funcionando kkkkkkkkk, mas estava crashando o app antes, deve ser macumba
@@ -56,7 +60,10 @@ public class MiniCursoFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 // Ação a ser executada quando o ícone de navegação for clicado
+
                 NavController navController = Navigation.findNavController(v);
+               //esse cara seria usado para deixa selecionar o botao home dps pra voltar, n sei se eu deixo ele
+                navController.popBackStack();
                 navController.navigate(R.id.navigation_home);
             }
         });

@@ -8,7 +8,6 @@ import androidx.room.PrimaryKey;
 import com.google.gson.annotations.SerializedName;
 
 @Entity(tableName = "tb_palestra", indices = @Index(value = {"id"}, unique = true))
-
 public class PalestraModel {
 // vou receber esse cara por request, ent acho q n vou precisar gerar o id auto
     @PrimaryKey(autoGenerate = false)

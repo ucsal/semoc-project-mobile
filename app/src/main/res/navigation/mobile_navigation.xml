@@ -10,6 +10,12 @@
         android:name="com.example.semocavi2.ui.home.HomeFragment"
         android:label="@string/title_home"
         tools:layout="@layout/fragment_home" />
+
+    <fragment
+    android:id="@+id/navigation_palestras"
+    android:name="com.example.semocavi2.ui.palestra.PalestraFragment"
+    android:label="@string/title_palestras"
+    tools:layout="@layout/fragment_palestra" />
     <fragment
         android:id="@+id/navigation_notifications"
         android:name="com.example.semocavi2.ui.notifications.NotificationsFragment"
@@ -18,7 +24,7 @@
     <fragment
         android:id="@+id/navigation_minicursos"
         android:name="com.example.semocavi2.ui.minicurso.MiniCursoFragment"
-        android:label="@string/tittle_minicursos"
+        android:label="@string/title_minicursos"
         tools:layout="@layout/fragment_mini_curso" />
     <fragment
     android:id="@+id/navigation_information"

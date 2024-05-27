@@ -23,7 +23,7 @@
             app:layout_constraintTop_toTopOf="parent"
             app:menu="@menu/top_app_bar_menu"
             app:navigationIcon="@drawable/arrow_back"
-            app:title="@string/tittle_minicursos"
+            app:title="@string/title_minicursos"
             app:titleTextColor="@color/black" />
 
         <androidx.recyclerview.widget.RecyclerView
