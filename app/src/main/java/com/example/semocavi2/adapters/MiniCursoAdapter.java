@@ -33,7 +33,9 @@ public class MiniCursoAdapter extends RecyclerView.Adapter<MiniCursoAdapter.Mini
     public void onBindViewHolder(@NonNull MiniCursoViewHolder holder, int position) {
         MiniCursoModel minicurso = minicursoList.get(position);
         holder.nomeTextView.setText(minicurso.getNome());
-        holder.descricaoTextView.setText(minicurso.getDescricao());
+        holder.dateTextView.setText(minicurso.getData());
+//        holder.descricaoTextView.setText(minicurso.getDescricao());
+        holder.horariosTextView.setText(minicurso.getHora());
     }
 
     @Override
@@ -43,12 +45,17 @@ public class MiniCursoAdapter extends RecyclerView.Adapter<MiniCursoAdapter.Mini
 
     static class MiniCursoViewHolder extends RecyclerView.ViewHolder {
         TextView nomeTextView;
-        TextView descricaoTextView;
+//        TextView descricaoTextView;
+
+        TextView horariosTextView;
+        TextView dateTextView;
 
         public MiniCursoViewHolder(@NonNull View itemView) {
             super(itemView);
             nomeTextView = itemView.findViewById(R.id.text_nome);
-            descricaoTextView = itemView.findViewById(R.id.text_descricao);
+//            descricaoTextView = itemView.findViewById(R.id.text_descricao);
+            dateTextView = itemView.findViewById(R.id.text_data);
+            horariosTextView = itemView.findViewById(R.id.text_horario);
         }
     }
 }
