@@ -1,18 +1,16 @@
 package com.example.semocavi2.models;
 
-import androidx.lifecycle.ViewModel;
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.Index;
 import androidx.room.PrimaryKey;
 
 import com.google.gson.annotations.SerializedName;
-@Entity(tableName = "tb_mini_cursos", indices = @Index(value = {"id"}, unique = true))
 
-public class MiniCursoModel {
+@Entity(tableName = "tb_palestra", indices = @Index(value = {"id"}, unique = true))
 
-    // vou receber esse cara por request, ent acho q n vou precisar gerar o id auto, mesma coisa das outras
-
+public class PalestraModel {
+// vou receber esse cara por request, ent acho q n vou precisar gerar o id auto
     @PrimaryKey(autoGenerate = false)
 
     @SerializedName("id")
@@ -39,9 +37,9 @@ public class MiniCursoModel {
     private String local;
 
     // fazer um pessoa dot get by id na hora que for listar esse cara. vai ser mais facil assim, por favor nao me julgue, se for pra fazer algo comigo que seja sexo
-    @SerializedName("instrutor_id")
-    @ColumnInfo(name = "instrutor_id")
-    private int instrutorId;
+    @SerializedName("palestrante_id")
+    @ColumnInfo(name = "palestrante_id")
+    private int palestrante_id;
 
     @SerializedName("tema")
     @ColumnInfo(name = "tema")
@@ -54,7 +52,6 @@ public class MiniCursoModel {
     @SerializedName("formato")
     @ColumnInfo(name = "formato")
     private String formato;
-
 
     public int getId() {
         return id;
@@ -104,12 +101,12 @@ public class MiniCursoModel {
         this.local = local;
     }
 
-    public int getInstrutorId() {
-        return instrutorId;
+    public int getPalestrante_id() {
+        return palestrante_id;
     }
 
-    public void setInstrutorId(int instrutor_id) {
-        this.instrutorId = instrutor_id;
+    public void setPalestrante_id(int palestrante_id) {
+        this.palestrante_id = palestrante_id;
     }
 
     public String getTema() {
@@ -135,7 +132,4 @@ public class MiniCursoModel {
     public void setFormato(String formato) {
         this.formato = formato;
     }
-
-
-
 }

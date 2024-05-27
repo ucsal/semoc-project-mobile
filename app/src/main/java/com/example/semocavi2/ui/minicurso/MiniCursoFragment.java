@@ -48,8 +48,8 @@ public class MiniCursoFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_mini_curso, container, false);
 
 
-        // n sei pq agora ta funcionando kkkkkkkkk
-        
+        // n sei pq agora ta funcionando kkkkkkkkk, mas estava crashando o app antes, deve ser macumba
+
         MaterialToolbar materialToolbar = view.findViewById(R.id.materialToolbar);
 
         materialToolbar.setNavigationOnClickListener(new View.OnClickListener() {
@@ -63,16 +63,20 @@ public class MiniCursoFragment extends Fragment {
 
 
 
-        // Inicialize o RecyclerView e o Adapter
+        // ajeitando o RecyclerView e o Adapter
         RecyclerView recyclerView = view.findViewById(R.id.recycler_view_minicursos);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         adapter = new MiniCursoAdapter();
         recyclerView.setAdapter(adapter);
+        // ajeitando o db, passando qual fragmento estou como context
         SemocAppDB database = SemocAppDB.getInstance(requireContext());
         SemocApiService semocApiService = RetrofitClient.getClient().create(SemocApiService.class);
         MiniCursosDao miniCursosDao = database.minicursoDao();
+        // esse bad boy aqui passa o servic e com  client do retrofit, essa parte eui ja peguei pronto ent n entendi mt bem como funfa, mas acho q ele passa os metdods de busca e save em banco pro repositorio, tenho quase certeza disso na real
         MiniCursoRepository repository = new MiniCursoRepository(semocApiService, miniCursosDao);
 
+
+        // esse cara vai ajudar o fragment a acesse e observe os dados do repository. mais duvidas joga no chat gpt, ele q fez isso aqui, na real eu n sei se tirar ele qubra alguma coisa mas vou deixar como ta. n tira meu ponto mario pf
         mViewModel = new ViewModelProvider(this, new ViewModelProvider.Factory() {
             @NonNull
             @Override
@@ -94,3 +98,4 @@ public class MiniCursoFragment extends Fragment {
         return view;
     }
 }
+// emanuel gameplays, queria muito ta jogando lol agora mas n posso

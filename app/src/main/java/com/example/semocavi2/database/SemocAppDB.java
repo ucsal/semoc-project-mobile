@@ -8,7 +8,6 @@ import androidx.room.RoomDatabase;
 
 import com.example.semocavi2.dao.MiniCursosDao;
 import com.example.semocavi2.models.MiniCursoModel;
-import com.example.semocavi2.ui.minicurso.MiniCursoViewModel;
 
 
 @Database(entities = {MiniCursoModel.class}, version = 5, exportSchema = false)

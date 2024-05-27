@@ -62,7 +62,7 @@ public class MiniCursoRepository {
 
             @Override
             public void onFailure(Call<List<MiniCursoModel>> call, Throwable t) {
-                // Trate falhas de conexão aqui
+                // Trate falhas de conexão aqui, vai dar n, com fe em God
             }
         });
     }

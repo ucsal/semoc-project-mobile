@@ -7,7 +7,6 @@ import androidx.room.OnConflictStrategy;
 import androidx.room.Query;
 
 import com.example.semocavi2.models.MiniCursoModel;
-import com.example.semocavi2.ui.minicurso.MiniCursoViewModel;
 
 import java.util.List;
 
