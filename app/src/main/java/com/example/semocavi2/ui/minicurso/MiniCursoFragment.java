@@ -2,6 +2,7 @@
 
 package com.example.semocavi2.ui.minicurso;
 
+import android.annotation.SuppressLint;
 import android.app.DatePickerDialog;
 import android.os.Bundle;
 
@@ -91,13 +92,15 @@ public class MiniCursoFragment extends Fragment {
                 int mMonth = c.get(Calendar.MONTH);
                 int mDay = c.get(Calendar.DAY_OF_MONTH);
 // configura o data picker e coloca ja uma maskara marota, crio outra para poder fazer as querys, ja q as datas vem com o ofrmato dd-mm-aaaa, pq eles n usam slash logo. sim  aquele cara do guns in roses
+           // adicionei tb o obtao de clear date,
                 DatePickerDialog datePickerDialog = new DatePickerDialog(getContext(),
                         new DatePickerDialog.OnDateSetListener() {
                             @Override
                             public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
                                 // Format date as dd/mm/yyyy
-                                String selectedDate = String.format("%02d/%02d/%04d", dayOfMonth, monthOfYear + 1, year);
-                                String selectedDateToQuery = String.format("%04d-%02d-%02d", year, monthOfYear + 1, dayOfMonth);
+                                @SuppressLint("DefaultLocale") String selectedDate = String.format("%02d/%02d/%04d", dayOfMonth, monthOfYear + 1, year);
+                                // real n sei se vai ter problema se eu dixar do outro formato.
+                                @SuppressLint("DefaultLocale") String selectedDateToQuery = String.format("%04d-%02d-%02d", year, monthOfYear + 1, dayOfMonth);
                                 Log.d("data value",selectedDateToQuery);
 
                                 editTextDate.setText(selectedDate);
