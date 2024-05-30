@@ -41,10 +41,6 @@ public class MainActivity extends AppCompatActivity {
     private MiniCursoViewModel mViewModel;
     private PalestrantesViewModel pViewModel;
 
-    private SemocApiService semocApiService;
-
-    private NavController navController;
-
 
 
     @Override
@@ -61,7 +57,7 @@ public class MainActivity extends AppCompatActivity {
         BottomNavigationView navView = findViewById(R.id.nav_view);
 // esses caras sao estao sendo configurados apenas para a botton navbar
         AppBarConfiguration appBarConfiguration = new AppBarConfiguration.Builder(
-                R.id.navigation_home, R.id.navigation_information, R.id.navigation_notifications)
+                R.id.navigation_home, R.id.navigation_information, R.id.navigation_notifications, R.id.navigation_minicursos, R.id.navigation_minicursos_details, R.id.navigation_palestrante)
                 .build();
 
 

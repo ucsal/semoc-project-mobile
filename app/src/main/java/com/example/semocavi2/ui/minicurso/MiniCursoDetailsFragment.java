@@ -5,6 +5,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -29,15 +30,13 @@ public class MiniCursoDetailsFragment extends Fragment {
     private PalestrantesViewModel pViewModel;
     private MiniCursoViewModel mViewModel;
     private TextView titleTextView, descricaoTextView, temaTextView, nivelTextView, localTextView, nomeInstrutorTextView, dataTextView, horaTextView, bioTextView;
-    private MaterialToolbar materialToolbar;
-
+   private Button buttonInfoPalestrante;
 
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_mini_curso_details, container, false);
-        materialToolbar = view.findViewById(R.id.materialToolbar);
         titleTextView = view.findViewById(R.id.title);
         descricaoTextView = view.findViewById(R.id.descricaoTextView);
         temaTextView = view.findViewById(R.id.tema);
@@ -47,12 +46,16 @@ public class MiniCursoDetailsFragment extends Fragment {
         dataTextView = view.findViewById(R.id.data);
         horaTextView = view.findViewById(R.id.hora);
         bioTextView = view.findViewById(R.id.instutorBio);
+        buttonInfoPalestrante = view.findViewById(R.id.maisInfo);
 
+
+        MaterialToolbar materialToolbar = view.findViewById(R.id.materialToolbar);
         materialToolbar.setNavigationOnClickListener(v -> {
             NavController navController = Navigation.findNavController(v);
             navController.popBackStack();
             navController.navigate(R.id.navigation_minicursos);
         });
+
 
         // esse cara esta inicializando as views models relacionados aos fragments, os dados ja foram pegos na main activity
         mViewModel = new ViewModelProvider(requireActivity()).get(MiniCursoViewModel.class);
@@ -74,6 +77,17 @@ public class MiniCursoDetailsFragment extends Fragment {
                     pViewModel.getPalestraById(miniCurso.getInstrutorId()).observe(getViewLifecycleOwner(), palestrante -> {
                         nomeInstrutorTextView.setText(palestrante.getNome());
                         bioTextView.setText(palestrante.getBio());
+
+                        buttonInfoPalestrante.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+
+                                Bundle bundle = new Bundle();
+                                bundle.putInt("instrutorId", palestrante.getId());
+                                NavController navController = Navigation.findNavController(view);
+                                navController.navigate(R.id.navigation_palestrante, bundle);
+                            }
+                        });
                     });
                 } else {
                     Log.d("MiniCursoDetail", "Minicurso not found");
@@ -82,6 +96,7 @@ public class MiniCursoDetailsFragment extends Fragment {
         } else {
             Log.d("MiniCursoDetail", "miniCursoId not found in arguments");
         }
+
 
         return view;
     }
