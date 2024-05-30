@@ -13,10 +13,18 @@
         tools:layout="@layout/fragment_home" />
 
     <fragment
+        android:id="@+id/navigation_palestrante"
+        android:name="com.example.semocavi2.ui.palestrante.PalestrantesFragment"
+        android:label="@string/title_palestrante"
+        tools:layout="@layout/fragment_palestrante"
+        />
+
+    <fragment
         android:id="@+id/navigation_palestras"
         android:name="com.example.semocavi2.ui.palestra.PalestraFragment"
         android:label="@string/title_palestras"
         tools:layout="@layout/fragment_palestra" />
+
     <fragment
         android:id="@+id/navigation_notifications"
         android:name="com.example.semocavi2.ui.notifications.NotificationsFragment"

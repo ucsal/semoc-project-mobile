@@ -2,6 +2,7 @@ package com.example.semocavi2.service;
 
 import com.example.semocavi2.models.MiniCursoModel;
 import com.example.semocavi2.models.PalestraModel;
+import com.example.semocavi2.models.PalestranteModel;
 
 import java.util.List;
 
@@ -15,7 +16,7 @@ public interface SemocApiService {
 
     @GET("palestras.json")
     Call<List<PalestraModel>> getPalestras();
-//
-//    @GET("pessoas.json")
-//    Call<List<PessoaViewModel>> getPessoas();
+
+    @GET("pessoas.json")
+    Call<List<PalestranteModel>> getPessoas();
 }
