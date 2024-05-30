@@ -84,6 +84,7 @@ public class MiniCursoFragment extends Fragment {
 
 
 
+
         DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(recyclerView.getContext(), DividerItemDecoration.VERTICAL);
         recyclerView.addItemDecoration(dividerItemDecoration);
 

@@ -9,17 +9,21 @@ import androidx.room.RoomDatabase;
 
 import com.example.semocavi2.dao.MiniCursosDao;
 import com.example.semocavi2.dao.PalestraDao;
+import com.example.semocavi2.dao.PalestranteDao;
 import com.example.semocavi2.models.MiniCursoModel;
 import com.example.semocavi2.models.PalestraModel;
+import com.example.semocavi2.models.PalestranteModel;
 
 // pra funfar a parte de room corretamente, e necessario colocar as model classes como entidades do banco, pq se n o arquivo generado automaticamente .impl n ajeita tudo e ai vc teria que forcara aentidade na mao, e isso nao e legal
 
-@Database(entities = {MiniCursoModel.class, PalestraModel.class}, version = 5, exportSchema = false)
+@Database(entities = {MiniCursoModel.class, PalestraModel.class, PalestranteModel.class}, version = 5, exportSchema = false)
 public abstract class SemocAppDB extends RoomDatabase {
     private static volatile SemocAppDB INSTANCE;
 
     public abstract MiniCursosDao minicursoDao();
     public abstract PalestraDao palestraDao();
+
+    public abstract PalestranteDao palestranteDao();
 
 
     public static SemocAppDB getInstance(Context context) {

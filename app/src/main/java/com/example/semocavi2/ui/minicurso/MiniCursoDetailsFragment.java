@@ -18,8 +18,11 @@ import androidx.navigation.Navigation;
 import com.example.semocavi2.R;
 import com.example.semocavi2.client.RetrofitClient;
 import com.example.semocavi2.dao.MiniCursosDao;
+import com.example.semocavi2.dao.PalestranteDao;
 import com.example.semocavi2.database.SemocAppDB;
 import com.example.semocavi2.repo.MiniCursoRepository;
+import com.example.semocavi2.repo.PalestraRepository;
+import com.example.semocavi2.repo.PalestranteRepository;
 import com.example.semocavi2.service.SemocApiService;
 import com.google.android.material.appbar.MaterialToolbar;
 
@@ -28,7 +31,13 @@ public class MiniCursoDetailsFragment extends Fragment {
 
     private MiniCursoViewModel mViewModel;
     private TextView titleTextView, descricaoTextView, temaTextView, nivelTextView, localTextView;
+    private MaterialToolbar materialToolbar;
+    private SemocApiService semocApiService;
+    private MiniCursosDao miniCursosDao;
+    private SemocAppDB database;
 
+    private PalestranteDao palestranteDao;
+    private PalestranteRepository palestraRepository;
     private MiniCursoRepository repository;
     private TextView descriptionTextView;
 
@@ -36,8 +45,7 @@ public class MiniCursoDetailsFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_mini_curso_details, container, false);
-        MaterialToolbar materialToolbar = view.findViewById(R.id.materialToolbar);
-
+        materialToolbar = view.findViewById(R.id.materialToolbar);
         titleTextView = view.findViewById(R.id.title);
         descricaoTextView = view.findViewById(R.id.descricaoTextView);
         temaTextView = view.findViewById(R.id.tema);
@@ -49,14 +57,16 @@ public class MiniCursoDetailsFragment extends Fragment {
             navController.popBackStack();
             navController.navigate(R.id.navigation_minicursos);
         });
-
-        Integer miniCursoId = getArguments() != null ? getArguments().getInt("miniCursoId") : null;
 // mds do ceu q coisa dificil eu devo ser mt burro
-        SemocAppDB database = SemocAppDB.getInstance(requireContext());
-        SemocApiService semocApiService = RetrofitClient.getClient().create(SemocApiService.class);
-        MiniCursosDao miniCursosDao = database.minicursoDao();
-        MiniCursoRepository repository = new MiniCursoRepository(semocApiService, miniCursosDao);
+        database = SemocAppDB.getInstance(requireContext());
+        semocApiService = RetrofitClient.getClient().create(SemocApiService.class);
+        miniCursosDao = database.minicursoDao();
+        palestranteDao = database.palestranteDao();
+        repository = new MiniCursoRepository(semocApiService, miniCursosDao);
 
+
+
+        palestraRepository = new PalestranteRepository(semocApiService, palestranteDao);
         mViewModel = new ViewModelProvider(this, new ViewModelProvider.Factory() {
             @NonNull
             @Override
@@ -67,9 +77,9 @@ public class MiniCursoDetailsFragment extends Fragment {
                 throw new IllegalArgumentException("Unknown ViewModel class");
             }
         }).get(MiniCursoViewModel.class);
-
-        if (miniCursoId != null) {
-            mViewModel.getMinicusosById(miniCursoId).observe(getViewLifecycleOwner(), miniCurso -> {
+// essa maluquice deu certo
+        if ((getArguments() != null ? getArguments().getInt("miniCursoId") : null) != null) {
+            mViewModel.getMinicusosById((getArguments() != null ? getArguments().getInt("miniCursoId") : null)).observe(getViewLifecycleOwner(), miniCurso -> {
                 if (miniCurso != null) {
                     titleTextView.setText(miniCurso.getNome());
                     descricaoTextView.setText(miniCurso.getDescricao());
@@ -78,7 +88,8 @@ public class MiniCursoDetailsFragment extends Fragment {
                     nivelTextView.setText(miniCurso.getNivel());
 
 
-                    ;} else {
+                    ;
+                } else {
                     Log.d("MiniCursoDetail", "Minicurso not found");
                 }
             });

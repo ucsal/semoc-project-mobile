@@ -21,6 +21,7 @@ public class PalestrantesViewModel extends ViewModel {
         this.palestrantesLiveDate = repository.getPalestrante();
     }
 
+    // esse cara nao vai ser usado
     public LiveData<List<PalestranteModel>> getPalestrantes(){
         return palestrantesLiveDate;
 
