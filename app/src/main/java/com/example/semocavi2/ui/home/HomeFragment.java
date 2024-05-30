@@ -51,12 +51,11 @@ public class HomeFragment extends Fragment {
         database = SemocAppDB.getInstance(requireContext());
         miniCursosDao = database.minicursoDao();
         palestranteDao = database.palestranteDao();
-
         repository = new MiniCursoRepository(semocApiService, miniCursosDao);
         palestraRepository = new PalestranteRepository(semocApiService, palestranteDao);
         semocApiService = RetrofitClient.getClient().create(SemocApiService.class);
 
-        
+
 
         ImageView minicursos = view.findViewById(R.id.navigation_minicursos);
         ImageView palestras = view.findViewById(R.id.navigation_palestras);

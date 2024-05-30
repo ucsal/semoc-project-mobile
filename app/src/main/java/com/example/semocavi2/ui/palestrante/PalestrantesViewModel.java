@@ -2,7 +2,9 @@ package com.example.semocavi2.ui.palestrante;
 
 import android.util.Log;
 
+import androidx.lifecycle.LifecycleOwner;
 import androidx.lifecycle.LiveData;
+import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModel;
 
 import com.example.semocavi2.models.PalestranteModel;
@@ -27,8 +29,19 @@ public class PalestrantesViewModel extends ViewModel {
 
     }
     public LiveData<PalestranteModel>getPalestraById(int id){
-        Log.d("id", "o id" + id);
-        return repository.getPalestranteById(id);
+            return repository.getPalestranteById(id);
+    }
+    public void observePalestranteById(int id, LifecycleOwner owner, Observer<PalestranteModel> observer) {
+        getPalestraById(id).observe(owner, new Observer<PalestranteModel>() {
+            @Override
+            public void onChanged(PalestranteModel palestrante) {
+                if (palestrante.getNome() != null) {
+                    observer.onChanged(palestrante);
+                } else {
+                    Log.d("PalestranteViewModel", "Palestrante é nulo");
+                }
+            }
+        });
     }
 
 

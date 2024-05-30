@@ -43,7 +43,6 @@ public class MiniCursoFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_mini_curso, container, false);
-        MaterialToolbar materialToolbar = view.findViewById(R.id.materialToolbar);
         RecyclerView recyclerView = view.findViewById(R.id.recycler_view_minicursos);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         adapter = new MiniCursoAdapter();
@@ -75,12 +74,14 @@ public class MiniCursoFragment extends Fragment {
             datePickerDialog.show();
         });
 
+
+        MaterialToolbar materialToolbar = view.findViewById(R.id.materialToolbar);
         materialToolbar.setNavigationOnClickListener(v -> {
             NavController navController = Navigation.findNavController(v);
-            navController.popBackStack();
-            navController.navigate(R.id.navigation_home);
+            if (!navController.popBackStack()) {
+                navController.navigate(R.id.navigation_home);
+            }
         });
-
         DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(recyclerView.getContext(), DividerItemDecoration.VERTICAL);
         recyclerView.addItemDecoration(dividerItemDecoration);
 

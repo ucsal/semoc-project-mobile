@@ -33,12 +33,15 @@ public class PalestrantesFragment extends Fragment {
 
         pViewModel = new ViewModelProvider(requireActivity()).get(PalestrantesViewModel.class);
 
+
         MaterialToolbar materialToolbar = view.findViewById(R.id.materialToolbar);
         materialToolbar.setNavigationOnClickListener(v -> {
             NavController navController = Navigation.findNavController(v);
-            navController.popBackStack();
-            navController.navigate(R.id.navigation_minicursos_details);
+            if (!navController.popBackStack()) {
+                navController.navigate(R.id.navigation_minicursos_details);
+            }
         });
+
 
 
         if (getArguments() != null && getArguments().containsKey("instrutorId")) {

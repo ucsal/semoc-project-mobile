@@ -11,14 +11,18 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
+import androidx.navigation.ui.AppBarConfiguration;
+import androidx.navigation.ui.NavigationUI;
 
 import com.example.semocavi2.R;
 import com.example.semocavi2.dao.MiniCursosDao;
 import com.example.semocavi2.dao.PalestranteDao;
 import com.example.semocavi2.database.SemocAppDB;
+import com.example.semocavi2.models.PalestranteModel;
 import com.example.semocavi2.repo.MiniCursoRepository;
 import com.example.semocavi2.repo.PalestranteRepository;
 import com.example.semocavi2.service.SemocApiService;
@@ -49,11 +53,13 @@ public class MiniCursoDetailsFragment extends Fragment {
         buttonInfoPalestrante = view.findViewById(R.id.maisInfo);
 
 
+
         MaterialToolbar materialToolbar = view.findViewById(R.id.materialToolbar);
         materialToolbar.setNavigationOnClickListener(v -> {
             NavController navController = Navigation.findNavController(v);
-            navController.popBackStack();
-            navController.navigate(R.id.navigation_minicursos);
+            if (!navController.popBackStack()) {
+                navController.navigate(R.id.navigation_minicursos);
+            }
         });
 
 
@@ -74,7 +80,15 @@ public class MiniCursoDetailsFragment extends Fragment {
                     horaTextView.setText(miniCurso.getHora());
 
                     Log.d("palestrante id ", "" + miniCurso.getInstrutorId());
+
+                    pViewModel.observePalestranteById(miniCurso.getInstrutorId(), getViewLifecycleOwner(), new Observer<PalestranteModel>() {
+                        @Override
+                        public void onChanged(PalestranteModel palestranteModel) {
+
+                        }
+                    });
                     pViewModel.getPalestraById(miniCurso.getInstrutorId()).observe(getViewLifecycleOwner(), palestrante -> {
+
                         nomeInstrutorTextView.setText(palestrante.getNome());
                         bioTextView.setText(palestrante.getBio());
 

@@ -54,18 +54,14 @@ public class MainActivity extends AppCompatActivity {
 
         getSupportActionBar().hide();
 
-        BottomNavigationView navView = findViewById(R.id.nav_view);
 // esses caras sao estao sendo configurados apenas para a botton navbar
         AppBarConfiguration appBarConfiguration = new AppBarConfiguration.Builder(
                 R.id.navigation_home, R.id.navigation_information, R.id.navigation_notifications, R.id.navigation_minicursos, R.id.navigation_minicursos_details, R.id.navigation_palestrante)
                 .build();
 
-
-
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_activity_main);
         NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
         NavigationUI.setupWithNavController(binding.navView, navController);
-
 
         SemocApiService semocApiService = RetrofitClient.getClient().create(SemocApiService.class);
         database = SemocAppDB.getInstance(this);
@@ -73,7 +69,6 @@ public class MainActivity extends AppCompatActivity {
         palestranteDao = database.palestranteDao();
         miniCursoRepository = new MiniCursoRepository(semocApiService, miniCursosDao);
         palestranteRepository = new PalestranteRepository(semocApiService, palestranteDao);
-
 
         mViewModel = new ViewModelProvider(this, new ViewModelProvider.Factory() {
             @NonNull
@@ -88,7 +83,6 @@ public class MainActivity extends AppCompatActivity {
 
         mViewModel.getMinicursos();
 
-
         pViewModel = new ViewModelProvider(this, new ViewModelProvider.Factory() {
             @NonNull
             @Override
@@ -100,11 +94,7 @@ public class MainActivity extends AppCompatActivity {
             }
         }).get(PalestrantesViewModel.class);
 
-
         pViewModel.getPalestrantes();
-
-
-
 
 
     }
