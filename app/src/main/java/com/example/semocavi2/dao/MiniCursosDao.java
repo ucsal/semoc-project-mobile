@@ -28,6 +28,8 @@ public interface MiniCursosDao {
         LiveData<List<MiniCursoModel>> getMinicursosByDate(String data);
 
 
+        @Query("SELECT * FROM tb_mini_cursos WHERE id = :id")
+        LiveData<MiniCursoModel> getMinicursosById(int id);
 
 
 }

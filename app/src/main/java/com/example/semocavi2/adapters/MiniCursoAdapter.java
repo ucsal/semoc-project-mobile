@@ -3,6 +3,7 @@ package com.example.semocavi2.adapters;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -16,7 +17,14 @@ import java.util.List;
 public class MiniCursoAdapter extends RecyclerView.Adapter<MiniCursoAdapter.MiniCursoViewHolder> {
 
     private List<MiniCursoModel> minicursoList;
+    private OnItemClickListener listener;
 
+    public interface OnItemClickListener{
+        void onItemClick(MiniCursoModel miniCursoModel);
+    }
+    public void setOnItemClickListener(OnItemClickListener listener) {
+        this.listener = listener;
+    }
     public void setMinicursoList(List<MiniCursoModel> minicursoList) {
         this.minicursoList = minicursoList;
         notifyDataSetChanged();
@@ -43,7 +51,8 @@ public class MiniCursoAdapter extends RecyclerView.Adapter<MiniCursoAdapter.Mini
         return minicursoList != null ? minicursoList.size() : 0;
     }
 
-    static class MiniCursoViewHolder extends RecyclerView.ViewHolder {
+    // n pode ser static
+     class MiniCursoViewHolder extends RecyclerView.ViewHolder {
         TextView nomeTextView;
 //        TextView descricaoTextView;
 
@@ -56,6 +65,19 @@ public class MiniCursoAdapter extends RecyclerView.Adapter<MiniCursoAdapter.Mini
 //            descricaoTextView = itemView.findViewById(R.id.text_descricao);
             dateTextView = itemView.findViewById(R.id.text_data);
             horariosTextView = itemView.findViewById(R.id.text_horario);
+
+
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    int pos =  getAdapterPosition();
+                    if (pos != RecyclerView.NO_POSITION && listener != null) {
+                        listener.onItemClick(minicursoList.get(pos));
+                    }
+
+                }
+            });
+
         }
     }
 }
