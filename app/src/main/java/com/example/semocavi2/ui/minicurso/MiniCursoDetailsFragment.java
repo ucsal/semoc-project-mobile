@@ -27,7 +27,7 @@ import com.google.android.material.appbar.MaterialToolbar;
 public class MiniCursoDetailsFragment extends Fragment {
 
     private MiniCursoViewModel mViewModel;
-    private TextView titleTextView;
+    private TextView titleTextView, descricaoTextView, temaTextView, nivelTextView, localTextView;
 
     private MiniCursoRepository repository;
     private TextView descriptionTextView;
@@ -38,7 +38,11 @@ public class MiniCursoDetailsFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_mini_curso_details, container, false);
         MaterialToolbar materialToolbar = view.findViewById(R.id.materialToolbar);
 
-        titleTextView = view.findViewById(R.id.titleTextView);
+        titleTextView = view.findViewById(R.id.title);
+        descricaoTextView = view.findViewById(R.id.descricaoTextView);
+        temaTextView = view.findViewById(R.id.tema);
+        localTextView = view.findViewById(R.id.local);
+        nivelTextView = view.findViewById(R.id.nivel);
 
         materialToolbar.setNavigationOnClickListener(v -> {
             NavController navController = Navigation.findNavController(v);
@@ -67,8 +71,14 @@ public class MiniCursoDetailsFragment extends Fragment {
         if (miniCursoId != null) {
             mViewModel.getMinicusosById(miniCursoId).observe(getViewLifecycleOwner(), miniCurso -> {
                 if (miniCurso != null) {
-                    titleTextView.setText(miniCurso.getDescricao());
-                } else {
+                    titleTextView.setText(miniCurso.getNome());
+                    descricaoTextView.setText(miniCurso.getDescricao());
+                    temaTextView.setText(miniCurso.getTema());
+                    localTextView.setText(miniCurso.getLocal());
+                    nivelTextView.setText(miniCurso.getNivel());
+
+
+                    ;} else {
                     Log.d("MiniCursoDetail", "Minicurso not found");
                 }
             });

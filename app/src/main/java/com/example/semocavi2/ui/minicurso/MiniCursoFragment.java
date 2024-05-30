@@ -82,6 +82,8 @@ public class MiniCursoFragment extends Fragment {
             navController.navigate(R.id.navigation_home);
         });
 
+
+
         DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(recyclerView.getContext(), DividerItemDecoration.VERTICAL);
         recyclerView.addItemDecoration(dividerItemDecoration);
 

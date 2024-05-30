@@ -18,6 +18,8 @@ public class MainActivity extends AppCompatActivity {
 
     private ActivityMainBinding binding;
 
+    private NavController navController;
+
 
 
     @Override
@@ -42,5 +44,12 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+
+//    @Override
+//    public void onResume() {
+//        super.onResume();
+//
+//        navController.popBackStack(R.id.navigation_home, false);
+//    }
 
 }
