@@ -82,12 +82,8 @@ public class MiniCursoFragment extends Fragment {
             navController.navigate(R.id.navigation_home);
         });
 
-
-
-
         DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(recyclerView.getContext(), DividerItemDecoration.VERTICAL);
         recyclerView.addItemDecoration(dividerItemDecoration);
-
         SemocAppDB database = SemocAppDB.getInstance(requireContext());
         SemocApiService semocApiService = RetrofitClient.getClient().create(SemocApiService.class);
         MiniCursosDao miniCursosDao = database.minicursoDao();
@@ -104,10 +100,10 @@ public class MiniCursoFragment extends Fragment {
             }
         }).get(MiniCursoViewModel.class);
 
-        mViewModel.getMinicursos().observe(getViewLifecycleOwner(), minicursos -> {
-            adapter.setMinicursoList(minicursos);
-            Log.d("Database", "Minicursos carregados: " + minicursos.size());
-        });
+//        mViewModel.getMinicursos().observe(getViewLifecycleOwner(), minicursos -> {
+//            adapter.setMinicursoList(minicursos);
+//            Log.d("Database", "Minicursos carregados: " + minicursos.size());
+//        });
 
         adapter.setOnItemClickListener(miniCurso -> {
             Bundle bundle = new Bundle();

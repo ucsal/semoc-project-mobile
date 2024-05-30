@@ -33,44 +33,43 @@ public class MiniCursoRepository {
         return miniCursosDao.getMinicursosById(id);
     }
 
-    private void refreshMinicursosIfNecessary() {
-        executor.execute(() -> {
-            if (miniCursosDao.getCount() == 0) {
-                refreshMinicursos();
-            } else {
-                Log.d("api", "refresh n necessario de minicursos");
-            }
-        });
-    }
+
 
     public LiveData<List<MiniCursoModel>> getMinicursos() {
-        refreshMinicursosIfNecessary();
-        return miniCursosDao.getMinicursos();
+refreshMinicursos();
+return miniCursosDao.getMinicursos();
     }
 
 
     private void refreshMinicursos() {
-        Log.d("api", "refresh minicursos da api necessario");
+        executor.execute(() -> {
+            if (miniCursosDao.getCount() == 0) {
+                Log.d("api", "refresh minicursos da api necessario");
 
-        // coloco um callback de pessoas em fila, dps crio uma thread para lidar com a insercao dos dados vindos do json no banco de dados
+                semocApiService.getMinicursos().enqueue(new Callback<List<MiniCursoModel>>() {
+                    @Override
+                    public void onResponse(Call<List<MiniCursoModel>> call, Response<List<MiniCursoModel>> response) {
+                        if (response.isSuccessful()) {
+                            new Thread(() -> {
+                                miniCursosDao.insert(response.body());
+                                Log.d("response DB", response.toString());
+                            }).start();
+                        } else {
+                            Log.d("response DB error", response.toString());
+                        }
+                    }
+                    @Override
+                    public void onFailure(Call<List<MiniCursoModel>> call, Throwable t) {
+                        // fe em Deus que nao vai rolar nenhuma falha, tira ponto n mario pf😎
+                    }
+                });
 
-        semocApiService.getMinicursos().enqueue(new Callback<List<MiniCursoModel>>() {
-            @Override
-            public void onResponse(Call<List<MiniCursoModel>> call, Response<List<MiniCursoModel>> response) {
-                if (response.isSuccessful()) {
-                    new Thread(() -> {
-                        miniCursosDao.insert(response.body());
-                        Log.d("response DB", response.toString());
-                    }).start();
-                } else {
-                    Log.d("response DB error", response.toString());
-                }
-            }
 
-            @Override
-            public void onFailure(Call<List<MiniCursoModel>> call, Throwable t) {
-                // fe em Deus que nao vai rolar nenhuma falha, tira ponto n mario pf😎
+            } else {
+                Log.d("api", "refresh n necessario de minicursos "+ miniCursosDao.getCount());
             }
         });
+
+
     }
 }

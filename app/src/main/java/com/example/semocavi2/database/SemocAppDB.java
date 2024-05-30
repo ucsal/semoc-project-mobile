@@ -2,10 +2,14 @@
 package com.example.semocavi2.database;
 
 import android.content.Context;
+import android.util.Log;
 
+import androidx.annotation.NonNull;
 import androidx.room.Database;
 import androidx.room.Room;
 import androidx.room.RoomDatabase;
+import androidx.room.migration.Migration;
+import androidx.sqlite.db.SupportSQLiteDatabase;
 
 import com.example.semocavi2.dao.MiniCursosDao;
 import com.example.semocavi2.dao.PalestraDao;
@@ -26,6 +30,8 @@ public abstract class SemocAppDB extends RoomDatabase {
     public abstract PalestranteDao palestranteDao();
 
 
+
+
     public static SemocAppDB getInstance(Context context) {
         if (INSTANCE == null) {
             synchronized (SemocAppDB.class) {
@@ -38,4 +44,31 @@ public abstract class SemocAppDB extends RoomDatabase {
         }
         return INSTANCE;
     }
+    static final Migration MIGRATION_1_2 = new Migration(1, 2) {
+        @Override
+        public void migrate(@NonNull SupportSQLiteDatabase database) {
+            database.execSQL("ALTER TABLE tb_mini_cursos ADD COLUMN new_column TEXT");
+            database.execSQL("ALTER TABLE tb_palestrantes ADD COLUMN new_column TEXT");
+        }
+    };
+
+
+    private static RoomDatabase.Callback roomCallback = new RoomDatabase.Callback() {
+        @Override
+        public void onCreate(@NonNull SupportSQLiteDatabase db) {
+            super.onCreate(db);
+            // Code to run on first creation of the database
+        }
+
+        @Override
+        public void onOpen(@NonNull SupportSQLiteDatabase db) {
+            super.onOpen(db);
+            // Code to run every time the database is opened
+            int currentVersion = db.getVersion();
+            Log.d("DatabaseVersion", "Current version: " + currentVersion);
+            // You can handle version check logic here if needed
+        }
+    };
+
+
 }

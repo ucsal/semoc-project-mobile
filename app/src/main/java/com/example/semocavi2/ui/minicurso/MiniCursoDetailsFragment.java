@@ -27,7 +27,6 @@ import com.example.semocavi2.service.SemocApiService;
 import com.example.semocavi2.ui.palestrante.PalestrantesViewModel;
 import com.google.android.material.appbar.MaterialToolbar;
 
-
 public class MiniCursoDetailsFragment extends Fragment {
 
     private PalestrantesViewModel pViewModel;
@@ -53,13 +52,7 @@ public class MiniCursoDetailsFragment extends Fragment {
         localTextView = view.findViewById(R.id.local);
         nivelTextView = view.findViewById(R.id.nivel);
         nomeInstrutorTextView = view.findViewById(R.id.nomeIstrutor);
-        palestraRepository = new PalestranteRepository(semocApiService, palestranteDao);
-        materialToolbar.setNavigationOnClickListener(v -> {
-            NavController navController = Navigation.findNavController(v);
-            navController.popBackStack();
-            navController.navigate(R.id.navigation_minicursos);
-        });
-// mds do ceu q coisa dificil eu devo ser mt burro
+
         database = SemocAppDB.getInstance(requireContext());
         semocApiService = RetrofitClient.getClient().create(SemocApiService.class);
         miniCursosDao = database.minicursoDao();
@@ -67,6 +60,11 @@ public class MiniCursoDetailsFragment extends Fragment {
         repository = new MiniCursoRepository(semocApiService, miniCursosDao);
         palestraRepository = new PalestranteRepository(semocApiService, palestranteDao);
 
+        materialToolbar.setNavigationOnClickListener(v -> {
+            NavController navController = Navigation.findNavController(v);
+            navController.popBackStack();
+            navController.navigate(R.id.navigation_minicursos);
+        });
 
         mViewModel = new ViewModelProvider(this, new ViewModelProvider.Factory() {
             @NonNull
@@ -78,6 +76,7 @@ public class MiniCursoDetailsFragment extends Fragment {
                 throw new IllegalArgumentException("Unknown ViewModel class");
             }
         }).get(MiniCursoViewModel.class);
+
         pViewModel = new ViewModelProvider(this, new ViewModelProvider.Factory() {
             @NonNull
             @Override
@@ -89,25 +88,26 @@ public class MiniCursoDetailsFragment extends Fragment {
             }
         }).get(PalestrantesViewModel.class);
 
-
-        if ((getArguments() != null ? getArguments().getInt("miniCursoId") : null) != null) {
-            mViewModel.getMinicusosById(getArguments().getInt("miniCursoId")).observe(getViewLifecycleOwner(), miniCurso -> {
+        if (getArguments() != null && getArguments().containsKey("miniCursoId")) {
+            int miniCursoId = getArguments().getInt("miniCursoId");
+            mViewModel.getMinicusosById(miniCursoId).observe(getViewLifecycleOwner(), miniCurso -> {
                 if (miniCurso != null) {
                     titleTextView.setText(miniCurso.getNome());
                     descricaoTextView.setText(miniCurso.getDescricao());
                     temaTextView.setText(miniCurso.getTema());
                     localTextView.setText(miniCurso.getLocal());
                     nivelTextView.setText(miniCurso.getNivel());
-                    Log.d("palestrante id ", ""+ miniCurso.getInstrutorId());
-                    pViewModel.getPalestraById(miniCurso.getInstrutorId()).observe(getViewLifecycleOwner(), palestrante ->{
+                    Log.d("palestrante id ", "" + miniCurso.getInstrutorId());
+                    pViewModel.getPalestraById(miniCurso.getInstrutorId()).observe(getViewLifecycleOwner(), palestrante -> {
                         nomeInstrutorTextView.setText(palestrante.getNome());
-                    } );
-
-
+                        Log.d("Database", "Minicursos filtrados por data: " + palestrante);
+                    });
                 } else {
                     Log.d("MiniCursoDetail", "Minicurso not found");
                 }
             });
+        } else {
+            Log.d("MiniCursoDetail", "miniCursoId not found in arguments");
         }
 
         return view;
