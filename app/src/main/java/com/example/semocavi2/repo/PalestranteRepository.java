@@ -78,6 +78,7 @@ public class PalestranteRepository {
 
 
     public LiveData<PalestranteModel> getPalestranteById(int id){
+        refreshPalestrantesIfNecessary();
         Log.d("id", "" + id);
         return palestranteDao.getPalestrantesById(id);
 

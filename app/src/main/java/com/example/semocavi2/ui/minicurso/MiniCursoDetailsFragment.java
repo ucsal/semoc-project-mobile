@@ -24,13 +24,15 @@ import com.example.semocavi2.repo.MiniCursoRepository;
 import com.example.semocavi2.repo.PalestraRepository;
 import com.example.semocavi2.repo.PalestranteRepository;
 import com.example.semocavi2.service.SemocApiService;
+import com.example.semocavi2.ui.palestrante.PalestrantesViewModel;
 import com.google.android.material.appbar.MaterialToolbar;
 
 
 public class MiniCursoDetailsFragment extends Fragment {
 
+    private PalestrantesViewModel pViewModel;
     private MiniCursoViewModel mViewModel;
-    private TextView titleTextView, descricaoTextView, temaTextView, nivelTextView, localTextView;
+    private TextView titleTextView, descricaoTextView, temaTextView, nivelTextView, localTextView, nomeInstrutorTextView;
     private MaterialToolbar materialToolbar;
     private SemocApiService semocApiService;
     private MiniCursosDao miniCursosDao;
@@ -39,7 +41,6 @@ public class MiniCursoDetailsFragment extends Fragment {
     private PalestranteDao palestranteDao;
     private PalestranteRepository palestraRepository;
     private MiniCursoRepository repository;
-    private TextView descriptionTextView;
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
@@ -51,7 +52,8 @@ public class MiniCursoDetailsFragment extends Fragment {
         temaTextView = view.findViewById(R.id.tema);
         localTextView = view.findViewById(R.id.local);
         nivelTextView = view.findViewById(R.id.nivel);
-
+        nomeInstrutorTextView = view.findViewById(R.id.nomeIstrutor);
+        palestraRepository = new PalestranteRepository(semocApiService, palestranteDao);
         materialToolbar.setNavigationOnClickListener(v -> {
             NavController navController = Navigation.findNavController(v);
             navController.popBackStack();
@@ -63,10 +65,9 @@ public class MiniCursoDetailsFragment extends Fragment {
         miniCursosDao = database.minicursoDao();
         palestranteDao = database.palestranteDao();
         repository = new MiniCursoRepository(semocApiService, miniCursosDao);
-
-
-
         palestraRepository = new PalestranteRepository(semocApiService, palestranteDao);
+
+
         mViewModel = new ViewModelProvider(this, new ViewModelProvider.Factory() {
             @NonNull
             @Override
@@ -77,18 +78,32 @@ public class MiniCursoDetailsFragment extends Fragment {
                 throw new IllegalArgumentException("Unknown ViewModel class");
             }
         }).get(MiniCursoViewModel.class);
-// essa maluquice deu certo
+        pViewModel = new ViewModelProvider(this, new ViewModelProvider.Factory() {
+            @NonNull
+            @Override
+            public <T extends ViewModel> T create(@NonNull Class<T> modelClass) {
+                if (modelClass.isAssignableFrom(PalestrantesViewModel.class)) {
+                    return (T) new PalestrantesViewModel(palestraRepository);
+                }
+                throw new IllegalArgumentException("Unknown ViewModel class");
+            }
+        }).get(PalestrantesViewModel.class);
+
+
         if ((getArguments() != null ? getArguments().getInt("miniCursoId") : null) != null) {
-            mViewModel.getMinicusosById((getArguments() != null ? getArguments().getInt("miniCursoId") : null)).observe(getViewLifecycleOwner(), miniCurso -> {
+            mViewModel.getMinicusosById(getArguments().getInt("miniCursoId")).observe(getViewLifecycleOwner(), miniCurso -> {
                 if (miniCurso != null) {
                     titleTextView.setText(miniCurso.getNome());
                     descricaoTextView.setText(miniCurso.getDescricao());
                     temaTextView.setText(miniCurso.getTema());
                     localTextView.setText(miniCurso.getLocal());
                     nivelTextView.setText(miniCurso.getNivel());
+                    Log.d("palestrante id ", ""+ miniCurso.getInstrutorId());
+                    pViewModel.getPalestraById(miniCurso.getInstrutorId()).observe(getViewLifecycleOwner(), palestrante ->{
+                        nomeInstrutorTextView.setText(palestrante.getNome());
+                    } );
 
 
-                    ;
                 } else {
                     Log.d("MiniCursoDetail", "Minicurso not found");
                 }
