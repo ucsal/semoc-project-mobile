@@ -43,7 +43,6 @@ public class PalestrantesFragment extends Fragment {
         });
 
 
-
         if (getArguments() != null && getArguments().containsKey("instrutorId")) {
             int instrutorId = getArguments().getInt("instrutorId");
             pViewModel.getPalestraById(instrutorId).observe(getViewLifecycleOwner(), palestrante -> {

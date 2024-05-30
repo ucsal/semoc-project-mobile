@@ -81,17 +81,19 @@ public class MiniCursoDetailsFragment extends Fragment {
 
                     Log.d("palestrante id ", "" + miniCurso.getInstrutorId());
 
-                    pViewModel.observePalestranteById(miniCurso.getInstrutorId(), getViewLifecycleOwner(), new Observer<PalestranteModel>() {
-                        @Override
-                        public void onChanged(PalestranteModel palestranteModel) {
+                    pViewModel.getPalestraById(miniCurso.getInstrutorId()).observe(getViewLifecycleOwner(), palestrante -> {
+//Se nao tiver id do palestrante, eu coloco o 1 pra representar que e parte do comite de organizacao da semoc
+
+                        try {
+                            nomeInstrutorTextView.setText(palestrante.getNome());
+                            bioTextView.setText(palestrante.getBio());
+                        }catch (NullPointerException e){
+                            pViewModel.getPalestraById(1).observe(getViewLifecycleOwner(), organizacao -> {
+                                nomeInstrutorTextView.setText(organizacao.getNome());
+                                bioTextView.setText(organizacao.getBio());
+                            });
 
                         }
-                    });
-                    pViewModel.getPalestraById(miniCurso.getInstrutorId()).observe(getViewLifecycleOwner(), palestrante -> {
-
-                        nomeInstrutorTextView.setText(palestrante.getNome());
-                        bioTextView.setText(palestrante.getBio());
-
                         buttonInfoPalestrante.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
