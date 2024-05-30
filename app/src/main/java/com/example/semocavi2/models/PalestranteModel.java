@@ -10,7 +10,6 @@ import com.google.gson.annotations.SerializedName;
 @Entity(tableName = "tb_palestrantes", indices = @Index(value = {"id"}, unique = true))
 public class PalestranteModel {
 
-
     @PrimaryKey(autoGenerate = false)
 
     @SerializedName("id")

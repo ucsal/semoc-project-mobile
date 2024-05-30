@@ -3,6 +3,7 @@ package com.example.semocavi2;
 import android.os.Bundle;
 import android.util.Log;
 
+import com.example.semocavi2.client.RetrofitClient;
 import com.example.semocavi2.dao.MiniCursosDao;
 import com.example.semocavi2.dao.PalestraDao;
 import com.example.semocavi2.dao.PalestranteDao;
@@ -74,12 +75,13 @@ public class MainActivity extends AppCompatActivity {
         NavigationUI.setupWithNavController(binding.navView, navController);
 
 
-
+        SemocApiService semocApiService = RetrofitClient.getClient().create(SemocApiService.class);
         database = SemocAppDB.getInstance(this);
         miniCursosDao = database.minicursoDao();
         palestranteDao = database.palestranteDao();
         miniCursoRepository = new MiniCursoRepository(semocApiService, miniCursosDao);
         palestranteRepository = new PalestranteRepository(semocApiService, palestranteDao);
+
 
         mViewModel = new ViewModelProvider(this, new ViewModelProvider.Factory() {
             @NonNull
