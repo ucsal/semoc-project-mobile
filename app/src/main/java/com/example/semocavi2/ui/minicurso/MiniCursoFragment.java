@@ -43,7 +43,6 @@ public class MiniCursoFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_mini_curso, container, false);
-
         MaterialToolbar materialToolbar = view.findViewById(R.id.materialToolbar);
         RecyclerView recyclerView = view.findViewById(R.id.recycler_view_minicursos);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
@@ -84,26 +83,11 @@ public class MiniCursoFragment extends Fragment {
 
         DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(recyclerView.getContext(), DividerItemDecoration.VERTICAL);
         recyclerView.addItemDecoration(dividerItemDecoration);
-        SemocAppDB database = SemocAppDB.getInstance(requireContext());
-        SemocApiService semocApiService = RetrofitClient.getClient().create(SemocApiService.class);
-        MiniCursosDao miniCursosDao = database.minicursoDao();
-        MiniCursoRepository repository = new MiniCursoRepository(semocApiService, miniCursosDao);
 
-        mViewModel = new ViewModelProvider(this, new ViewModelProvider.Factory() {
-            @NonNull
-            @Override
-            public <T extends ViewModel> T create(@NonNull Class<T> modelClass) {
-                if (modelClass.isAssignableFrom(MiniCursoViewModel.class)) {
-                    return (T) new MiniCursoViewModel(repository);
-                }
-                throw new IllegalArgumentException("Unknown ViewModel class");
-            }
-        }).get(MiniCursoViewModel.class);
-
-//        mViewModel.getMinicursos().observe(getViewLifecycleOwner(), minicursos -> {
-//            adapter.setMinicursoList(minicursos);
-//            Log.d("Database", "Minicursos carregados: " + minicursos.size());
-//        });
+        mViewModel = new ViewModelProvider(requireActivity()).get(MiniCursoViewModel.class);
+        mViewModel.getMinicursos().observe(getViewLifecycleOwner(), minicursos -> {
+            adapter.setMinicursoList(minicursos);
+        });
 
         adapter.setOnItemClickListener(miniCurso -> {
             Bundle bundle = new Bundle();
