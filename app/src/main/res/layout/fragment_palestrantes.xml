@@ -37,51 +37,52 @@
             android:layout_marginTop="16dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/materialToolbar">
+            app:layout_constraintTop_toBottomOf="@+id/materialToolbar"
+            app:layout_constraintVertical_bias="0.0">
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
                 <ImageView
-                    android:id="@+id/imageView6"
-                    android:layout_width="218dp"
-                    android:layout_height="177dp"
+                    android:id="@+id/imagemInstrutor"
+                    android:layout_width="114dp"
+                    android:layout_height="109dp"
                     android:layout_marginStart="16dp"
-                    android:layout_marginTop="16dp"
+                    android:layout_marginTop="12dp"
                     android:layout_marginEnd="16dp"
                     android:src="@drawable/the_last_of_us_part_ii_key_art_wallpaper_ipad_air_image_block_01_ps4_us_04oct19"
+                    app:layout_constraintBottom_toTopOf="@+id/nomeInstrutorDetails"
                     app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.498"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintVertical_bias="0.0" />
 
                 <TextView
-                    android:id="@+id/nomeInstrutor"
-                    android:layout_width="0dp"
+                    android:id="@+id/nomeInstrutorDetails"
+                    android:layout_width="379dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="16dp"
-                    android:layout_marginTop="16dp"
-                    android:layout_marginEnd="16dp"
+                    android:layout_marginBottom="24dp"
                     android:text="nome Instrutor"
                     android:textAlignment="center"
                     android:textSize="20sp"
+                    app:layout_constraintBottom_toTopOf="@+id/bioInstrutorDetails"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/imageView6" />
+                    app:layout_constraintStart_toStartOf="parent" />
 
                 <TextView
-                    android:id="@+id/bioPalestrante"
-                    android:layout_width="0dp"
+                    android:id="@+id/bioInstrutorDetails"
+                    android:layout_width="411dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="16dp"
                     android:text="bio"
                     android:textAlignment="center"
                     android:textSize="20sp"
+                    app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0.0"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/nomeInstrutor" />
+                    app:layout_constraintStart_toStartOf="parent" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
         </ScrollView>
