@@ -75,33 +75,24 @@ public class MiniCursoDetailsFragment extends Fragment {
 
                     pViewModel.getPalestraById(miniCurso.getInstrutorId()).observe(getViewLifecycleOwner(), palestrante -> {
 //Se nao tiver id do palestrante, eu coloco o 1 pra representar que e parte do comite de organizacao da semoc, e vai continuar a funcionar mesmo se o professor atualizar o json
-
+//deixo o botao invisivel caso ele esteja nulo
                         try {
                             nomeInstrutorTextView.setText(palestrante.getNome());
                             bioTextView.setText(palestrante.getBio());
                         }catch (NullPointerException e){
-                                nomeInstrutorTextView.setText("Ainda nao Definido");
+                                nomeInstrutorTextView.setText("Instrutor Ainda nao Definido");
                             bioTextView.setText("");
-                            Log.d("Instrutor Nulo","adivinha");
+                            buttonInfoPalestrante.setVisibility(View.GONE);
 
 
                         }
                         buttonInfoPalestrante.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
-
-
-                                try {
-                                    Bundle bundle = new Bundle();
-                                    bundle.putInt("instrutorId", palestrante.getId());
-                                    NavController navController = Navigation.findNavController(view);
-                                    navController.navigate(R.id.navigation_palestrante, bundle);
-                                }catch (NullPointerException e){
-                                    Log.d("Instrutor Nulo","adivinha");
-
-                                }
-
-
+                                Bundle bundle = new Bundle();
+                                bundle.putInt("instrutorId", palestrante.getId());
+                                NavController navController = Navigation.findNavController(view);
+                                navController.navigate(R.id.navigation_palestrante, bundle);
                             }
                         });
                     });
