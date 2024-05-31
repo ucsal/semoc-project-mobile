@@ -9,9 +9,11 @@ import com.example.semocavi2.dao.PalestraDao;
 import com.example.semocavi2.dao.PalestranteDao;
 import com.example.semocavi2.database.SemocAppDB;
 import com.example.semocavi2.repo.MiniCursoRepository;
+import com.example.semocavi2.repo.PalestraRepository;
 import com.example.semocavi2.repo.PalestranteRepository;
 import com.example.semocavi2.service.SemocApiService;
 import com.example.semocavi2.ui.minicurso.MiniCursoViewModel;
+import com.example.semocavi2.ui.palestra.PalestraViewModel;
 import com.example.semocavi2.ui.palestrante.PalestrantesViewModel;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
@@ -34,12 +36,15 @@ public class MainActivity extends AppCompatActivity {
 
     private MiniCursosDao miniCursosDao;
     private PalestranteDao palestranteDao;
+    private PalestraDao palestraDao;
     private MiniCursoRepository miniCursoRepository;
     private PalestranteRepository palestranteRepository;
+    private PalestraRepository palestraRepository;
     private SemocAppDB database;
 
     private MiniCursoViewModel mViewModel;
     private PalestrantesViewModel pViewModel;
+    private PalestraViewModel plViewModel;
 
 
 
@@ -67,8 +72,10 @@ public class MainActivity extends AppCompatActivity {
         database = SemocAppDB.getInstance(this);
         miniCursosDao = database.minicursoDao();
         palestranteDao = database.palestranteDao();
+        palestraDao = database.palestraDao();
         miniCursoRepository = new MiniCursoRepository(semocApiService, miniCursosDao);
         palestranteRepository = new PalestranteRepository(semocApiService, palestranteDao);
+        palestraRepository = new PalestraRepository(semocApiService,palestraDao);
 
         mViewModel = new ViewModelProvider(this, new ViewModelProvider.Factory() {
             @NonNull
@@ -95,16 +102,23 @@ public class MainActivity extends AppCompatActivity {
         }).get(PalestrantesViewModel.class);
 
         pViewModel.getPalestrantes();
+        plViewModel = new ViewModelProvider(this, new ViewModelProvider.Factory() {
+            @NonNull
+            @Override
+            public <T extends ViewModel> T create(@NonNull Class<T> modelClass) {
+                if (modelClass.isAssignableFrom(PalestraViewModel.class)) {
+                    return (T) new PalestraViewModel(palestraRepository);
+                }
+                throw new IllegalArgumentException("Unknown ViewModel class");
+            }
+        }).get(PalestraViewModel.class);
+
+        plViewModel.getPalestras();
 
 
     }
 
 
-//    @Override
-//    public void onResume() {
-//        super.onResume();
-//
-//        navController.popBackStack(R.id.navigation_home, false);
-//    }
+
 
 }

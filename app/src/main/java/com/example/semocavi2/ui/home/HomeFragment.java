@@ -30,14 +30,8 @@ import com.example.semocavi2.ui.minicurso.MiniCursoFragment;
 public class HomeFragment extends Fragment {
 
 
-    private SemocAppDB database;
-    private PalestranteRepository palestraRepository;
-    private MiniCursoRepository repository;
-    private MiniCursosDao miniCursosDao;
-    private PalestranteDao palestranteDao;
     private FragmentHomeBinding binding;
 
-    private SemocApiService semocApiService;
 
 
     @Nullable
@@ -47,13 +41,6 @@ public class HomeFragment extends Fragment {
 
         View view = inflater.inflate(R.layout.fragment_home, container, false);
 
-
-        database = SemocAppDB.getInstance(requireContext());
-        miniCursosDao = database.minicursoDao();
-        palestranteDao = database.palestranteDao();
-        repository = new MiniCursoRepository(semocApiService, miniCursosDao);
-        palestraRepository = new PalestranteRepository(semocApiService, palestranteDao);
-        semocApiService = RetrofitClient.getClient().create(SemocApiService.class);
 
 
 
