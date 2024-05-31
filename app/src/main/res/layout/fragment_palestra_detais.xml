@@ -5,7 +5,7 @@
     android:id="@+id/frameLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.minicurso.MiniCursoDetailsFragment">
+    tools:context=".ui.palestra.PalestraDetaisFragment">
 
     <com.google.android.material.appbar.MaterialToolbar
         android:id="@+id/materialToolbar"
@@ -18,7 +18,7 @@
         app:layout_constraintTop_toTopOf="parent"
         app:menu="@menu/top_app_bar_menu"
         app:navigationIcon="@drawable/arrow_back"
-        app:title="@string/tittle_mini_curso_details"
+        app:title="@string/title_palestra_details"
         app:titleTextColor="@color/black" />
 
     <androidx.constraintlayout.widget.ConstraintLayout

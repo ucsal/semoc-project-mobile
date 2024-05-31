@@ -91,6 +91,14 @@ public class PalestraFragment extends Fragment {
             }
         });
 
+        adapter.setOnItemClickListener(palestra -> {
+            Bundle bundle = new Bundle();
+            bundle.putInt("palestraId", palestra.getId());
+
+            NavController navController = Navigation.findNavController(view);
+            navController.navigate(R.id.navigation_palestras_details,  bundle);
+        });
+
 
         return view;
 

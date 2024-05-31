@@ -44,7 +44,6 @@ public class MiniCursoAdapter extends RecyclerView.Adapter<MiniCursoAdapter.Mini
          minicurso = minicursoList.get(position);
         holder.nomeTextView.setText(minicurso.getNome());
         holder.dateTextView.setText(minicurso.getData());
-//        holder.descricaoTextView.setText(minicurso.getDescricao());
         holder.horariosTextView.setText(minicurso.getHora());
     }
 

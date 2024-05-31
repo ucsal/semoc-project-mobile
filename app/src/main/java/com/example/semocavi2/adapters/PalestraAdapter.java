@@ -68,7 +68,16 @@ public class PalestraAdapter  extends RecyclerView.Adapter<PalestraAdapter.Pales
             dateTextView = itemView.findViewById(R.id.text_data);
             horariosTextView = itemView.findViewById(R.id.text_horario);
 
+             itemView.setOnClickListener(new View.OnClickListener() {
+                 @Override
+                 public void onClick(View v) {
+                     int pos =  getAdapterPosition();
+                     if (pos != RecyclerView.NO_POSITION && listener != null) {
+                         listener.onItemClick(palestraList.get(pos));
+                     }
 
+                 }
+             });
         }
     }
 }
