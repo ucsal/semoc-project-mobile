@@ -23,8 +23,17 @@ public class PalestraViewModel extends ViewModel {
 
     }
 
-    public LiveData<List<PalestraModel>> getPalestras(){
-        return  palestrasLiveData;
+    public LiveData<List<PalestraModel>> getPalestrasByData(String data) {
+        return palestraRepository.getPalestraByData(data);
+    }
+
+    public LiveData<PalestraModel> getPalestraById(int id){
+        return palestraRepository.getPalestraById(id);
+
+    }
+
+    public LiveData<List<PalestraModel>> getPalestras() {
+        return palestrasLiveData;
     }
 
 }

@@ -17,6 +17,9 @@ public interface PalestraDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     void insert(List<PalestraModel> palestras);
 
+    @Query("SELECT * FROM tb_palestra WHERE data = :data")
+    LiveData<List<PalestraModel>> getPalestraByData(String data);
+
     @Query("SELECT * FROM tb_palestra")
     LiveData<List<PalestraModel>> getPalestras();
 
@@ -24,6 +27,9 @@ public interface PalestraDao {
     @Query("SELECT COUNT(*) FROM tb_palestra")
     int getCount();
 
+
+    @Query("SELECT * FROM tb_palestra WHERE id = :id")
+    LiveData<PalestraModel>getPalestraById(int id);
 
 
 

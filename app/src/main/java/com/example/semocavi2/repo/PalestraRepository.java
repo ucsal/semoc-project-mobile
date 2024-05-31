@@ -25,45 +25,54 @@ public class PalestraRepository {
     public PalestraRepository(SemocApiService semocApiService, PalestraDao palestraDao) {
         this.semocApiService = semocApiService;
         this.palestraDao = palestraDao;
-        // feito para executar dentro de uma thread separada, eu acho, e o que diz no nome
         this.executor = Executors.newSingleThreadExecutor();
     }
 
-    // meio falho isso aqui, mas apenas para efeito da atividade irei manter
-    private void refreshPalestrasIfNecessary() {
-        executor.execute(() -> {
-            int count = palestraDao.getCount();
-            if (count == 0) {
-                refreshPalestrasDb();
-            }
-        });
+public LiveData<List<PalestraModel>>getPalestraByData(String data){
+        return palestraDao.getPalestraByData(data);
+}
+    public LiveData<PalestraModel> getPalestraById(int id) {
+        return palestraDao.getPalestraById(id);
     }
 
     public LiveData<List<PalestraModel>> getPalestras() {
-        refreshPalestrasIfNecessary();
+        refreshPalestrasDb();
         Log.d("api", "refresh n necessario");
         return palestraDao.getPalestras();
     }
 
     private void refreshPalestrasDb() {
-        Log.d("api", "refresh minicursos da api");
 
-        semocApiService.getPalestras().enqueue(new Callback<List<PalestraModel>>() {
-            @Override
-            public void onResponse(Call<List<PalestraModel>> call, Response<List<PalestraModel>> response) {
-                if (response.isSuccessful()) {
-                    new Thread(() -> {
-                        palestraDao.insert(response.body());
-                    }).start();
-                } else {
-                }
-            }
+        executor.execute(() -> {
+            if (palestraDao.getCount() == 0) {
+                Log.d("api", "refresh palestras da api necessario");
 
-            @Override
-            public void onFailure(Call<List<PalestraModel>> call, Throwable t) {
-                // Trate falhas de conexão aqui, vai dar n, com fe em God
+                semocApiService.getPalestras().enqueue(new Callback<List<PalestraModel>>() {
+                    @Override
+                    public void onResponse(Call<List<PalestraModel>> call, Response<List<PalestraModel>> response) {
+                        if (response.isSuccessful()) {
+                            new Thread(() -> {
+                                palestraDao.insert(response.body());
+                            }).start();
+                        } else {
+                            Log.d("response DB error", response.toString());
+                            Log.d("api", "refresh minicursos da api");
+
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<List<PalestraModel>> call, Throwable t) {
+                        Log.d("response repository", "failure to call palestras on repo" + t);
+                    }
+                });
+            } else {
+                Log.d("api", "refresh n necessario de palestrantes" + palestraDao.getCount());
+
             }
         });
+
+
     }
 
 }

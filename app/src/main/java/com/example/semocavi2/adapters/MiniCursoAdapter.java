@@ -16,6 +16,8 @@ import java.util.List;
 
 public class MiniCursoAdapter extends RecyclerView.Adapter<MiniCursoAdapter.MiniCursoViewHolder> {
 
+
+    private MiniCursoModel minicurso;
     private List<MiniCursoModel> minicursoList;
     private OnItemClickListener listener;
 
@@ -39,7 +41,7 @@ public class MiniCursoAdapter extends RecyclerView.Adapter<MiniCursoAdapter.Mini
 
     @Override
     public void onBindViewHolder(@NonNull MiniCursoViewHolder holder, int position) {
-        MiniCursoModel minicurso = minicursoList.get(position);
+         minicurso = minicursoList.get(position);
         holder.nomeTextView.setText(minicurso.getNome());
         holder.dateTextView.setText(minicurso.getData());
 //        holder.descricaoTextView.setText(minicurso.getDescricao());
@@ -53,16 +55,11 @@ public class MiniCursoAdapter extends RecyclerView.Adapter<MiniCursoAdapter.Mini
 
     // n pode ser static
      class MiniCursoViewHolder extends RecyclerView.ViewHolder {
-        TextView nomeTextView;
-//        TextView descricaoTextView;
-
-        TextView horariosTextView;
-        TextView dateTextView;
+        TextView nomeTextView,  horariosTextView, dateTextView;
 
         public MiniCursoViewHolder(@NonNull View itemView) {
             super(itemView);
             nomeTextView = itemView.findViewById(R.id.text_nome);
-//            descricaoTextView = itemView.findViewById(R.id.text_descricao);
             dateTextView = itemView.findViewById(R.id.text_data);
             horariosTextView = itemView.findViewById(R.id.text_horario);
 

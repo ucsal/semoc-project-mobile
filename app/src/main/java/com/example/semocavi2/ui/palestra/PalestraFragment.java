@@ -61,36 +61,12 @@ public class PalestraFragment extends Fragment {
 
             }
         });
-//
-//        RecyclerView recyclerView = view.findViewById(R.id.);
-//        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-//        adapter = new MiniCursoAdapter();
-//        recyclerView.setAdapter(adapter);
+
         SemocAppDB database = SemocAppDB.getInstance(requireContext());
         SemocApiService semocApiService = RetrofitClient.getClient().create(SemocApiService.class);
         PalestraDao palestraDao = database.palestraDao();
 
         PalestraRepository repository = new PalestraRepository(semocApiService, palestraDao);
-
-//
-//        mViewModel = new ViewModelProvider(this, new ViewModelProvider.Factory() {
-//            @NonNull
-//            @Override
-//            public <T extends ViewModel> T create(@NonNull Class<T> modelClass) {
-//                if (modelClass.isAssignableFrom(PalestraViewModel.class)) {
-//                    return (T) new PalestraViewModel(repository);
-//                }
-//                throw new IllegalArgumentException("Unknown ViewModel class");
-//            }
-//        }).get(PalestraViewModel.class);
-//
-//        // Observar o LiveData dos minicursos
-//        mViewModel.getPalestras().observe(getViewLifecycleOwner(), palestras -> {
-//            adapter.set();
-//            Log.d("Database", "Palestras carregados: " + .size());
-//
-//        });
-
 
         return view;
 

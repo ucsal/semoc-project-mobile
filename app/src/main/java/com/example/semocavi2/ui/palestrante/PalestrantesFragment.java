@@ -59,7 +59,7 @@ palestranteImagemView = view.findViewById(R.id.imagemInstrutor);
 
                     nomePalestramteTextView.setText(palestrante.getNome());
                     bioPalestranteTextView.setText(palestrante.getBio());
-                    // isso aqui deve funcionar 
+                    // isso aqui deve funcionar
                     Picasso.get().load(palestrante.getFotoUrl()).into(palestranteImagemView);
 
                     Log.d("palestrante id ", "" + palestrante.getId());

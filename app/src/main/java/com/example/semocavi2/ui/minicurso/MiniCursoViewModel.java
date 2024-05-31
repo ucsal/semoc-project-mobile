@@ -22,7 +22,6 @@ public class MiniCursoViewModel extends ViewModel {
     }
 
     public LiveData<MiniCursoModel> getMinicusosById(int id){
-        Log.d("id", "o id" + id);
         return repository.getMinicursoById(id);
     }
 
