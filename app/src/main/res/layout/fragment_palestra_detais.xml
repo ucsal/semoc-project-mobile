@@ -22,7 +22,7 @@
         app:titleTextColor="@color/black" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/instrutor"
+        android:id="@+id/palestrante"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:background="#A8B4FB"
@@ -33,21 +33,21 @@
         app:layout_constraintStart_toStartOf="parent">
 
         <TextView
-            android:id="@+id/instrutorNome"
+            android:id="@+id/palestranteNome"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="nome"
-            app:layout_constraintBottom_toTopOf="@+id/instutorBio"
+            app:layout_constraintBottom_toTopOf="@+id/palestranteBio"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="1.0" />
 
         <TextView
-            android:id="@+id/instutorBio"
+            android:id="@+id/palestranteBio"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:text="bioInstrutor"
+            android:text="bioPalestrante"
             android:textAlignment="center"
             app:layout_constraintBottom_toTopOf="@+id/maisInfo"
             app:layout_constraintEnd_toEndOf="parent"
@@ -68,7 +68,7 @@
     <ScrollView
         android:layout_width="0dp"
         android:layout_height="0dp"
-        app:layout_constraintBottom_toTopOf="@+id/instrutor"
+        app:layout_constraintBottom_toTopOf="@+id/palestrante"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"

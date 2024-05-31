@@ -52,8 +52,8 @@ palestranteImagemView = view.findViewById(R.id.imagemInstrutor);
         });
 
 
-        if (getArguments() != null && getArguments().containsKey("instrutorId")) {
-            int instrutorId = getArguments().getInt("instrutorId");
+        if (getArguments() != null && getArguments().containsKey("pessoaId")) {
+            int instrutorId = getArguments().getInt("pessoaId");
             pViewModel.getPalestraById(instrutorId).observe(getViewLifecycleOwner(), palestrante -> {
                 if (palestrante != null) {
 

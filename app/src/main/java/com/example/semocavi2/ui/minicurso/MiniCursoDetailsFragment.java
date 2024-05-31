@@ -87,7 +87,7 @@ public class MiniCursoDetailsFragment extends Fragment {
                             @Override
                             public void onClick(View v) {
                                 Bundle bundle = new Bundle();
-                                bundle.putInt("instrutorId", palestrante.getId());
+                                bundle.putInt("pessoaId", palestrante.getId());
                                 NavController navController = Navigation.findNavController(view);
                                 navController.navigate(R.id.navigation_palestrante, bundle);
                             }
