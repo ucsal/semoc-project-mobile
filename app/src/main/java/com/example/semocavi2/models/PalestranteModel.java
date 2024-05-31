@@ -24,9 +24,22 @@ public class PalestranteModel {
     private String bio;
 
 
+    @SerializedName("foto_url")
+    @ColumnInfo(name = "foto_url")
+    private String fotoUrl;
+
+
     @SerializedName("tipo")
     @ColumnInfo(name = "tipo")
     private String tipo;
+
+    public String getFotoUrl() {
+        return fotoUrl;
+    }
+
+    public void setFotoUrl(String fotoUrl) {
+        this.fotoUrl = fotoUrl;
+    }
 
     public int getId() {
         return id;

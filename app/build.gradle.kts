@@ -51,6 +51,7 @@ dependencies {
     implementation ("com.squareup.retrofit2:retrofit:2.9.0")
     implementation ("com.squareup.retrofit2:converter-gson:2.5.0")
     implementation ("com.google.android.material:material:1.4.0")
+    implementation ("com.squareup.picasso:picasso:2.8")
 
     val room_version = "2.6.1"
     implementation("androidx.room:room-runtime:$room_version")

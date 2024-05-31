@@ -37,38 +37,39 @@ public abstract class SemocAppDB extends RoomDatabase {
             synchronized (SemocAppDB.class) {
                 if (INSTANCE == null) {
                     INSTANCE = Room.databaseBuilder(context.getApplicationContext(),
-                                    SemocAppDB.class, "semoc_database").allowMainThreadQueries()
+                                    SemocAppDB.class, "semoc_database").allowMainThreadQueries().addMigrations()
                             .build();
                 }
             }
         }
         return INSTANCE;
     }
-    static final Migration MIGRATION_1_2 = new Migration(1, 2) {
-        @Override
-        public void migrate(@NonNull SupportSQLiteDatabase database) {
-            database.execSQL("ALTER TABLE tb_mini_cursos ADD COLUMN new_column TEXT");
-            database.execSQL("ALTER TABLE tb_palestrantes ADD COLUMN new_column TEXT");
-        }
-    };
-
-
-    private static RoomDatabase.Callback roomCallback = new RoomDatabase.Callback() {
-        @Override
-        public void onCreate(@NonNull SupportSQLiteDatabase db) {
-            super.onCreate(db);
-            // Code to run on first creation of the database
-        }
-
-        @Override
-        public void onOpen(@NonNull SupportSQLiteDatabase db) {
-            super.onOpen(db);
-            // Code to run every time the database is opened
-            int currentVersion = db.getVersion();
-            Log.d("DatabaseVersion", "Current version: " + currentVersion);
-            // You can handle version check logic here if needed
-        }
-    };
+    // precisa configurar certinho para dar certo
+//    static final Migration MIGRATION_1_2 = new Migration(1, 2) {
+//        @Override
+//        public void migrate(@NonNull SupportSQLiteDatabase database) {
+//            database.execSQL("ALTER TABLE tb_mini_cursos ADD COLUMN new_column TEXT");
+//            database.execSQL("ALTER TABLE tb_palestrantes ADD COLUMN new_column TEXT");
+//        }
+//    };
+//
+//
+//    private static RoomDatabase.Callback roomCallback = new RoomDatabase.Callback() {
+//        @Override
+//        public void onCreate(@NonNull SupportSQLiteDatabase db) {
+//            super.onCreate(db);
+//            // Code to run on first creation of the database
+//        }
+//
+//        @Override
+//        public void onOpen(@NonNull SupportSQLiteDatabase db) {
+//            super.onOpen(db);
+//            // Code to run every time the database is opened
+//            int currentVersion = db.getVersion();
+//            Log.d("DatabaseVersion", "Current version: " + currentVersion);
+//            // You can handle version check logic here if needed
+//        }
+//    };
 
 
 }
