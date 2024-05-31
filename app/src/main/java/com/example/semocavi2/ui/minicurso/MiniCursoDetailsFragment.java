@@ -43,9 +43,6 @@ public class MiniCursoDetailsFragment extends Fragment {
         horaTextView = view.findViewById(R.id.hora);
         bioTextView = view.findViewById(R.id.instutorBio);
         buttonInfoPalestrante = view.findViewById(R.id.maisInfo);
-
-
-
         MaterialToolbar materialToolbar = view.findViewById(R.id.materialToolbar);
         materialToolbar.setNavigationOnClickListener(v -> {
             NavController navController = Navigation.findNavController(v);
