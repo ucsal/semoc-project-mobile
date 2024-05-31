@@ -11,21 +11,13 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
-import androidx.navigation.ui.AppBarConfiguration;
-import androidx.navigation.ui.NavigationUI;
+
 
 import com.example.semocavi2.R;
-import com.example.semocavi2.dao.MiniCursosDao;
-import com.example.semocavi2.dao.PalestranteDao;
-import com.example.semocavi2.database.SemocAppDB;
-import com.example.semocavi2.models.PalestranteModel;
-import com.example.semocavi2.repo.MiniCursoRepository;
-import com.example.semocavi2.repo.PalestranteRepository;
-import com.example.semocavi2.service.SemocApiService;
+
 import com.example.semocavi2.ui.palestrante.PalestrantesViewModel;
 import com.google.android.material.appbar.MaterialToolbar;
 
@@ -82,26 +74,34 @@ public class MiniCursoDetailsFragment extends Fragment {
                     Log.d("palestrante id ", "" + miniCurso.getInstrutorId());
 
                     pViewModel.getPalestraById(miniCurso.getInstrutorId()).observe(getViewLifecycleOwner(), palestrante -> {
-//Se nao tiver id do palestrante, eu coloco o 1 pra representar que e parte do comite de organizacao da semoc
+//Se nao tiver id do palestrante, eu coloco o 1 pra representar que e parte do comite de organizacao da semoc, e vai continuar a funcionar mesmo se o professor atualizar o json
 
                         try {
                             nomeInstrutorTextView.setText(palestrante.getNome());
                             bioTextView.setText(palestrante.getBio());
                         }catch (NullPointerException e){
-                            pViewModel.getPalestraById(1).observe(getViewLifecycleOwner(), organizacao -> {
-                                nomeInstrutorTextView.setText(organizacao.getNome());
-                                bioTextView.setText(organizacao.getBio());
-                            });
+                                nomeInstrutorTextView.setText("Ainda nao Definido");
+                            bioTextView.setText("");
+                            Log.d("Instrutor Nulo","adivinha");
+
 
                         }
                         buttonInfoPalestrante.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
 
-                                Bundle bundle = new Bundle();
-                                bundle.putInt("instrutorId", palestrante.getId());
-                                NavController navController = Navigation.findNavController(view);
-                                navController.navigate(R.id.navigation_palestrante, bundle);
+
+                                try {
+                                    Bundle bundle = new Bundle();
+                                    bundle.putInt("instrutorId", palestrante.getId());
+                                    NavController navController = Navigation.findNavController(view);
+                                    navController.navigate(R.id.navigation_palestrante, bundle);
+                                }catch (NullPointerException e){
+                                    Log.d("Instrutor Nulo","adivinha");
+
+                                }
+
+
                             }
                         });
                     });

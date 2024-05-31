@@ -34,6 +34,7 @@ public class MiniCursoFragment extends Fragment {
     private MiniCursoViewModel mViewModel;
     private MiniCursoAdapter adapter;
 
+
     @Override
     public void onDestroyView() {
         super.onDestroyView();
@@ -49,7 +50,6 @@ public class MiniCursoFragment extends Fragment {
         recyclerView.setAdapter(adapter);
 
         editTextDate = view.findViewById(R.id.editTextDate);
-
         editTextDate.setOnClickListener(v -> {
             final Calendar c = Calendar.getInstance();
             int mYear = c.get(Calendar.YEAR);
@@ -73,6 +73,7 @@ public class MiniCursoFragment extends Fragment {
             });
             datePickerDialog.show();
         });
+
 
 
         MaterialToolbar materialToolbar = view.findViewById(R.id.materialToolbar);
@@ -101,10 +102,12 @@ public class MiniCursoFragment extends Fragment {
     }
 
     private void filterMinicursosByDate(String selectedDate) {
-        mViewModel.getMinicursosByDate(selectedDate).observe(getViewLifecycleOwner(), minicursos -> {
-            adapter.setMinicursoList(minicursos);
-            Log.d("Database", "Minicursos filtrados por data: " + minicursos.size());
-        });
+if (selectedDate != null){
+    mViewModel.getMinicursosByDate(selectedDate).observe(getViewLifecycleOwner(), minicursos -> {
+        adapter.setMinicursoList(minicursos);
+        Log.d("Database", "Minicursos filtrados por data: " + minicursos.size());
+    });
+}
     }
 
     private void loadAllMinicursos() {
