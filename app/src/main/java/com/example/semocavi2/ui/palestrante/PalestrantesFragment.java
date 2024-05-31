@@ -27,7 +27,6 @@ public class PalestrantesFragment extends Fragment {
     private ImageView palestranteImagemView;
     private PalestrantesViewModel pViewModel;
 
-    private String imageUrl = "https://www.google.com.br/imgres?q=macaco&imgurl=https%3A%2F%2Fs2-g1.glbimg.com%2Fl7fUkvdovxaODjM-7_LKacF-pU4%3D%2F0x0%3A1700x1065%2F1008x0%2Fsmart%2Ffilters%3Astrip_icc()%2Fs3.glbimg.com%2Fv1%2FAUTH_59edd422c0c84a879bd37670ae4f538a%2Fphotos%2Fapis%2Fb03aa813eaaa4e059f069c843d77415a%2Fselfie.jpg&imgrefurl=https%3A%2F%2Fg1.globo.com%2Fnatureza%2Fnoticia%2Fmacaco-da-selfie-pode-desaparecer-na-indonesia-por-causa-de-sua-carne.ghtml&docid=2jfR-GTnebwXlM&tbnid=XFh0Zv9Wzn0YFM&vet=12ahUKEwj41bjZh7eGAxXdLrkGHbKHDlsQM3oECBQQAA..i&w=1008&h=631&hcb=2&ved=2ahUKEwj41bjZh7eGAxXdLrkGHbKHDlsQM3oECBQQAA";
 
 
     public static PalestrantesFragment newInstance() {
@@ -60,6 +59,8 @@ palestranteImagemView = view.findViewById(R.id.imagemInstrutor);
 
                     nomePalestramteTextView.setText(palestrante.getNome());
                     bioPalestranteTextView.setText(palestrante.getBio());
+                    // isso aqui deve funcionar 
+                    Picasso.get().load(palestrante.getFotoUrl()).into(palestranteImagemView);
 
                     Log.d("palestrante id ", "" + palestrante.getId());
 
