@@ -86,9 +86,8 @@ public class PalestraFragment extends Fragment {
         MaterialToolbar materialToolbar = view.findViewById(R.id.materialToolbar);
         materialToolbar.setNavigationOnClickListener(v -> {
             NavController navController = Navigation.findNavController(v);
-            if (!navController.popBackStack()) {
                 navController.navigate(R.id.navigation_home);
-            }
+
         });
 
         adapter.setOnItemClickListener(palestra -> {

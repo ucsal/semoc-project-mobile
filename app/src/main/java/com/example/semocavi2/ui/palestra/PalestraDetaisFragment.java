@@ -61,9 +61,9 @@ public class PalestraDetaisFragment extends Fragment {
                     descricaoTextView.setText(palestra.getDescricao());
                     temaTextView.setText(palestra.getTema());
                     localTextView.setText(palestra.getLocal());
-                    nivelTextView.setText(palestra.getNivel());
-                    dataTextView.setText(palestra.getData());
-                    horaTextView.setText(palestra.getHora());
+                    nivelTextView.setText(String.format("Nivel: %s", palestra.getNivel()));
+                    dataTextView.setText(String.format("Data: %s", palestra.getData()));
+                    horaTextView.setText(String.format("Hora: %s", palestra.getHora()));
 
                     Log.d("palestrante id ", "" + palestra.getPalestrante_id());
 

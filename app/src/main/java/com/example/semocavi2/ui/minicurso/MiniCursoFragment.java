@@ -52,7 +52,6 @@ public class MiniCursoFragment extends Fragment {
         adapter = new MiniCursoAdapter();
         recyclerView.setAdapter(adapter);
         editTextDate = view.findViewById(R.id.editTextDate);
-
         mViewModel = new ViewModelProvider(requireActivity()).get(MiniCursoViewModel.class);
         mViewModel.getMinicursos().observe(getViewLifecycleOwner(), minicursos -> {
             adapter.setMinicursoList(minicursos);
@@ -88,9 +87,8 @@ public class MiniCursoFragment extends Fragment {
         MaterialToolbar materialToolbar = view.findViewById(R.id.materialToolbar);
         materialToolbar.setNavigationOnClickListener(v -> {
             NavController navController = Navigation.findNavController(v);
-            if (!navController.popBackStack()) {
-                navController.navigate(R.id.navigation_home);
-            }
+                 navController.navigate(R.id.navigation_home);
+
         });
 
 

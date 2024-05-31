@@ -21,6 +21,9 @@ import com.example.semocavi2.R;
 import com.example.semocavi2.ui.palestrante.PalestrantesViewModel;
 import com.google.android.material.appbar.MaterialToolbar;
 
+import java.time.format.DateTimeFormatter;
+import java.util.Locale;
+
 public class MiniCursoDetailsFragment extends Fragment {
 
     private PalestrantesViewModel pViewModel;
@@ -64,10 +67,9 @@ public class MiniCursoDetailsFragment extends Fragment {
                     descricaoTextView.setText(miniCurso.getDescricao());
                     temaTextView.setText(miniCurso.getTema());
                     localTextView.setText(miniCurso.getLocal());
-                    nivelTextView.setText(miniCurso.getNivel());
-                    dataTextView.setText(miniCurso.getData());
-                    horaTextView.setText(miniCurso.getHora());
-
+                    nivelTextView.setText(String.format("Nivel: %s", miniCurso.getNivel()));
+                    dataTextView.setText(String.format("Data: %s", miniCurso.getData()));
+                    horaTextView.setText(String.format("Hora: %s", miniCurso.getHora()));
                     Log.d("palestrante id ", "" + miniCurso.getInstrutorId());
 
                     pViewModel.getPalestraById(miniCurso.getInstrutorId()).observe(getViewLifecycleOwner(), palestrante -> {
