@@ -52,7 +52,7 @@ public class HomeFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 NavController navController = Navigation.findNavController(v);
-                navController.popBackStack();
+//                navController.popBackStack();
 
                 navController.navigate(R.id.navigation_palestras);
             }
@@ -63,7 +63,7 @@ public class HomeFragment extends Fragment {
 
                 NavController navController = Navigation.findNavController(v);
                 // esse cara limpa a stack de navegacao e dps muda para o minicuros fragment, dessa forma a gente pode voltar para o hoem sem pr
-                navController.popBackStack();
+//                navController.popBackStack();
                 navController.navigate(R.id.navigation_minicursos);
             }
         });

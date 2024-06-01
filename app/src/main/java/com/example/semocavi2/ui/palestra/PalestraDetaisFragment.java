@@ -52,6 +52,7 @@ public class PalestraDetaisFragment extends Fragment {
             NavController navController = Navigation.findNavController(v);
             if (!navController.popBackStack()) {
                 navController.navigate(R.id.navigation_palestras);
+
             }
         });
 

@@ -88,6 +88,8 @@ public class MiniCursoFragment extends Fragment {
         materialToolbar.setNavigationOnClickListener(v -> {
             NavController navController = Navigation.findNavController(v);
                  navController.navigate(R.id.navigation_home);
+            navController.popBackStack(R.id.navigation_minicursos_details, true);
+
 
         });
 
