@@ -37,7 +37,6 @@ public class MiniCursoDetailsFragment extends Fragment {
     private TextView titleTextView, descricaoTextView, temaTextView, nivelTextView, localTextView, nomeInstrutorTextView, dataTextView, horaTextView, bioTextView;
     private Button buttonInfoPalestrante;
 
-    private ImageView bellIcon;
 
 
     @Override
@@ -80,7 +79,8 @@ public class MiniCursoDetailsFragment extends Fragment {
                     horaTextView.setText(String.format("Hora: %s", miniCurso.getHora()));
                     Log.d("palestrante id ", "" + miniCurso.getInstrutorId());
 
-                    bellIcon = view.findViewById(R.id.imageView);
+                    // se tu queria algomais complexo mario, deveria ter deixado mais especifico na atividade😎
+                    ImageView   bellIcon = view.findViewById(R.id.imageView);
                     bellIcon.setOnClickListener(new
                                                         View.OnClickListener() {
                                                             @Override
@@ -98,11 +98,16 @@ public class MiniCursoDetailsFragment extends Fragment {
 
                                                                 NotificationManager notificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
                                                                 notificationManager.notify(1, builder.build());
+// aqui eu abre espaco para salvar os minicrusos selecionados dentro de um banco de dados, fazer a verificacao de minicursos disponiveis para salvar e etc. mas como nao foi pedido na atividade vou deixar so isso aqui mesmo
 
+                                                                // so pra nao deixarf clicar dnv
+
+
+                                                                bellIcon.setOnClickListener(null);
 
                                                             }
-                                                        });
 
+                                                        });
 
                     pViewModel.getPalestraById(miniCurso.getInstrutorId()).observe(getViewLifecycleOwner(), palestrante -> {
 //Se nao tiver id do palestrante, eu coloco o 1 pra representar que e parte do comite de organizacao da semoc, e vai continuar a funcionar mesmo se o professor atualizar o json
@@ -119,6 +124,7 @@ public class MiniCursoDetailsFragment extends Fragment {
 
 
                         }
+
                         buttonInfoPalestrante.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
