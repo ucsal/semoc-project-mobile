@@ -1,7 +1,12 @@
 package com.example.semocavi2;
 
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
+import android.content.pm.PackageManager;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
+import android.widget.Toast;
 
 import com.example.semocavi2.client.RetrofitClient;
 import com.example.semocavi2.dao.MiniCursosDao;
@@ -19,6 +24,8 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 import androidx.lifecycle.ViewModel;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
@@ -31,7 +38,8 @@ import com.example.semocavi2.databinding.ActivityMainBinding;
 
 public class MainActivity extends AppCompatActivity {
 // esse cara foi de um template do android studio
-
+private static final int PERMISSION_REQUEST_CODE = 1;
+    private static final String CHANNEL_ID = "channel_id";
     private ActivityMainBinding binding;
 
     private MiniCursosDao miniCursosDao;
@@ -51,6 +59,10 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        checkAndRequestPermissions();
+        createNotificationChannel();
+
 
 
 
@@ -116,8 +128,43 @@ public class MainActivity extends AppCompatActivity {
         plViewModel.getPalestras();
 
 
+
     }
 
+    private void createNotificationChannel() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            CharSequence name = "Canal de Notificação";
+            String description = "Descrição do Canal";
+            int importance = NotificationManager.IMPORTANCE_HIGH;
+            NotificationChannel channel = new NotificationChannel(CHANNEL_ID, name, importance);
+            channel.setDescription(description);
+
+            NotificationManager notificationManager = getSystemService(NotificationManager.class);
+            if (notificationManager != null) {
+                notificationManager.createNotificationChannel(channel);
+            }
+        }
+    }
+
+
+    private void checkAndRequestPermissions() {
+        if (ContextCompat.checkSelfPermission(this, android.Manifest.permission.POST_NOTIFICATIONS) != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(this, new String[]{android.Manifest.permission.POST_NOTIFICATIONS}, PERMISSION_REQUEST_CODE);
+        }
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        if (requestCode == PERMISSION_REQUEST_CODE) {
+            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                // Permissão concedida, continue com a operação
+            } else {
+                // Permissão negada, informe ao usuário que a permissão é necessária
+                Toast.makeText(this, "A permissão de notificações é necessária para esta funcionalidade.", Toast.LENGTH_SHORT).show();
+            }
+        }
+    }
 
 
 

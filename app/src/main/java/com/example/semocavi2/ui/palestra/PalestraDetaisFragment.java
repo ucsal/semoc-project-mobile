@@ -49,6 +49,8 @@ public class PalestraDetaisFragment extends Fragment {
             }
         });
 
+
+
         // esse cara esta inicializando as views models relacionados aos fragments, os dados ja foram pegos na main activity
         plViewModel = new ViewModelProvider(requireActivity()).get(PalestraViewModel.class);
         pViewModel = new ViewModelProvider(requireActivity()).get(PalestrantesViewModel.class);

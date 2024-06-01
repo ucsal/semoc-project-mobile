@@ -1,15 +1,20 @@
 package com.example.semocavi2.ui.minicurso;
 
+import android.app.NotificationManager;
+import android.content.Context;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.core.app.NotificationCompat;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
@@ -18,6 +23,7 @@ import androidx.navigation.Navigation;
 
 import com.example.semocavi2.R;
 
+import com.example.semocavi2.ui.notifications.NotificationHelper;
 import com.example.semocavi2.ui.palestrante.PalestrantesViewModel;
 import com.google.android.material.appbar.MaterialToolbar;
 
@@ -29,7 +35,9 @@ public class MiniCursoDetailsFragment extends Fragment {
     private PalestrantesViewModel pViewModel;
     private MiniCursoViewModel mViewModel;
     private TextView titleTextView, descricaoTextView, temaTextView, nivelTextView, localTextView, nomeInstrutorTextView, dataTextView, horaTextView, bioTextView;
-   private Button buttonInfoPalestrante;
+    private Button buttonInfoPalestrante;
+
+    private ImageView bellIcon;
 
 
     @Override
@@ -72,14 +80,40 @@ public class MiniCursoDetailsFragment extends Fragment {
                     horaTextView.setText(String.format("Hora: %s", miniCurso.getHora()));
                     Log.d("palestrante id ", "" + miniCurso.getInstrutorId());
 
+                    bellIcon = view.findViewById(R.id.imageView);
+                    bellIcon.setOnClickListener(new
+                                                        View.OnClickListener() {
+                                                            @Override
+                                                            public void onClick(View v) {
+                                                                Context context = getContext();
+                                                                NotificationHelper.createNotificationChannel(context);
+
+                                                                NotificationCompat.Builder builder = new NotificationCompat.Builder(context, NotificationHelper.getChannelId())
+                                                                        .setSmallIcon(R.drawable.bell_notification)
+                                                                        .setContentTitle(miniCurso.getNome())
+                                                                        .setContentText("programado para: " + miniCurso.getData())
+                                                                        .setPriority(NotificationCompat.PRIORITY_DEFAULT)
+                                                                        .setLargeIcon(BitmapFactory.decodeResource(getResources(), R.drawable.ic_launcher_foreground))
+                                                                        .setAutoCancel(true);
+
+                                                                NotificationManager notificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
+                                                                notificationManager.notify(1, builder.build());
+
+
+                                                            }
+                                                        });
+
+
                     pViewModel.getPalestraById(miniCurso.getInstrutorId()).observe(getViewLifecycleOwner(), palestrante -> {
 //Se nao tiver id do palestrante, eu coloco o 1 pra representar que e parte do comite de organizacao da semoc, e vai continuar a funcionar mesmo se o professor atualizar o json
 //deixo o botao invisivel caso ele esteja nulo
                         try {
                             nomeInstrutorTextView.setText(palestrante.getNome());
                             bioTextView.setText(palestrante.getBio());
-                        }catch (NullPointerException e){
-                                nomeInstrutorTextView.setText("Instrutor Ainda nao Definido");
+
+
+                        } catch (NullPointerException e) {
+                            nomeInstrutorTextView.setText("Instrutor Ainda nao Definido");
                             bioTextView.setText("");
                             buttonInfoPalestrante.setVisibility(View.GONE);
 
@@ -105,5 +139,9 @@ public class MiniCursoDetailsFragment extends Fragment {
 
 
         return view;
+    }
+
+    private void sendNotification() {
+
     }
 }
