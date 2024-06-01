@@ -127,10 +127,7 @@
                     app:layout_constraintStart_toStartOf="@+id/guideline_vertical_50"
                     app:layout_constraintTop_toTopOf="@+id/guideline_horizontal_50" />
 
-                <!-- ImageView bottom-left -->
 
-
-                <!-- ImageView bottom-right -->
 
 
             </androidx.constraintlayout.widget.ConstraintLayout>
