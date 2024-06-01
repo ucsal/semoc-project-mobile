@@ -1,5 +1,6 @@
 package com.example.semocavi2.models;
 
+import androidx.fragment.app.Fragment;
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.Index;
@@ -17,6 +18,8 @@ public class MiniCursoModel {
     @SerializedName("id")
     @ColumnInfo(name = "id")
     private int id;
+
+
     @SerializedName("nome")
     @ColumnInfo(name = "nome")
     private String nome;
