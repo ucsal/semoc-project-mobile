@@ -53,13 +53,15 @@
                     android:layout_marginStart="16dp"
                     android:layout_marginTop="12dp"
                     android:layout_marginEnd="16dp"
-                    android:src="@drawable/the_last_of_us_part_ii_key_art_wallpaper_ipad_air_image_block_01_ps4_us_04oct19"
                     app:layout_constraintBottom_toTopOf="@+id/nomeInstrutorDetails"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.498"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintVertical_bias="0.0" />
+
+<!--                android:src="@drawable/the_last_of_us_part_ii_key_art_wallpaper_ipad_air_image_block_01_ps4_us_04oct19"-->
+
 
                 <TextView
                     android:id="@+id/nomeInstrutorDetails"

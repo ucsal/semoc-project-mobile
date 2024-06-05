@@ -23,14 +23,18 @@ import com.squareup.picasso.Picasso;
 
 public class PalestrantesFragment extends Fragment {
 
-    private TextView bioPalestranteTextView, nomePalestramteTextView;
+    private TextView bioPalestranteTextView, nomePalestranteTextView;
     private ImageView palestranteImagemView;
     private PalestrantesViewModel pViewModel;
 
 
-
-    public static PalestrantesFragment newInstance() {
-        return new PalestrantesFragment();
+    private void setupToolbar(View view) {
+        MaterialToolbar materialToolbar = view.findViewById(R.id.materialToolbar);
+        materialToolbar.setNavigationOnClickListener(v -> {
+            NavController navController = Navigation.findNavController(v);
+            navController.navigate(R.id.navigation_home);
+            navController.popBackStack(R.id.navigation_palestras_details, true);
+        });
     }
 
     @Override
@@ -38,42 +42,39 @@ public class PalestrantesFragment extends Fragment {
                              @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_palestrantes, container, false);
 
+        // Inicialização das views e ViewModel
+        initializeViews(view);
         pViewModel = new ViewModelProvider(requireActivity()).get(PalestrantesViewModel.class);
 
-bioPalestranteTextView = view.findViewById(R.id.bioInstrutorDetails);
-nomePalestramteTextView = view.findViewById(R.id.nomeInstrutorDetails);
-palestranteImagemView = view.findViewById(R.id.imagemInstrutor);
-        MaterialToolbar materialToolbar = view.findViewById(R.id.materialToolbar);
-        materialToolbar.setNavigationOnClickListener(v -> {
-            NavController navController = Navigation.findNavController(v);
-            if (!navController.popBackStack()) {
-                navController.navigate(R.id.navigation_minicursos_details);
-            }
-        });
+        // Configuração da Toolbar
+        setupToolbar(view);
 
-
+        // Verificação se há argumentos passados
         if (getArguments() != null && getArguments().containsKey("pessoaId")) {
             int instrutorId = getArguments().getInt("pessoaId");
             pViewModel.getPalestraById(instrutorId).observe(getViewLifecycleOwner(), palestrante -> {
-                if (palestrante != null) {
-
-                    nomePalestramteTextView.setText(palestrante.getNome());
+                    // Configuração dos dados do palestrante nas views
+                    nomePalestranteTextView.setText(palestrante.getNome());
                     bioPalestranteTextView.setText(palestrante.getBio());
-                    // isso aqui deve funcionar
-                    Picasso.get().load(palestrante.getFotoUrl()).into(palestranteImagemView);
 
-                    Log.d("palestrante id ", "" + palestrante.getId());
 
-                } else {
-                }
+//                    Picasso.get().load(palestrante.getFotoUrl()).into(palestranteImagemView);
+
+
+                // test de imagem com o picasso com link valido
+                String picassoImageUrl = "https://cdn2.thecatapi.com/images/3t0.jpg";
+                Picasso.get().load(picassoImageUrl).into(palestranteImagemView);
             });
         } else {
-            Log.d("palestrante ", "instrutor not found in arguments");
+            Log.d("palestrante ", "No instructor ID found in arguments");
         }
         return view;
-
-
     }
 
-
+    // Método para inicializar as views
+    private void initializeViews(View view) {
+        bioPalestranteTextView = view.findViewById(R.id.bioInstrutorDetails);
+        nomePalestranteTextView = view.findViewById(R.id.nomeInstrutorDetails);
+        palestranteImagemView = view.findViewById(R.id.imagemInstrutor);
+    }
 }
