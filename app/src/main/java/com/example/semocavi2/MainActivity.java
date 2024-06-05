@@ -39,7 +39,6 @@ import com.example.semocavi2.databinding.ActivityMainBinding;
 public class MainActivity extends AppCompatActivity {
 // esse cara foi de um template do android studio
 private static final int PERMISSION_REQUEST_CODE = 1;
-    private static final String CHANNEL_ID = "channel_id";
     private ActivityMainBinding binding;
 
     private MiniCursosDao miniCursosDao;
@@ -49,7 +48,6 @@ private static final int PERMISSION_REQUEST_CODE = 1;
     private PalestranteRepository palestranteRepository;
     private PalestraRepository palestraRepository;
     private SemocAppDB database;
-
     private MiniCursoViewModel mViewModel;
     private PalestrantesViewModel pViewModel;
     private PalestraViewModel plViewModel;
@@ -59,94 +57,62 @@ private static final int PERMISSION_REQUEST_CODE = 1;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
+        // aesse bad boy aqui que pede se pode mandar notificacao
         checkAndRequestPermissions();
-        createNotificationChannel();
-
+        // escondendo a navbar padrao do app, real n me lembro como que eu tinha tirado no outro projeto mas n foi com isso
         getSupportActionBar().hide();
-
-
-
         binding = ActivityMainBinding.inflate(getLayoutInflater());
+        // setando o root layout
         setContentView(binding.getRoot());
-
-
-// esses caras sao estao sendo configurados apenas para a botton navbar
-//        AppBarConfiguration appBarConfiguration = new AppBarConfiguration.Builder(
-//                R.id.navigation_home, R.id.navigation_information, R.id.navigation_notifications, R.id.navigation_minicursos, R.id.navigation_minicursos_details, R.id.navigation_palestrante)
-//                .build();
-//
-//        NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_activity_main);
-//        NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
-//        NavigationUI.setupWithNavController(binding.navView, navController);
-
         SemocApiService semocApiService = RetrofitClient.getClient().create(SemocApiService.class);
         database = SemocAppDB.getInstance(this);
+
+        // inicializando os daos com a instancia das tabelas dentro do banco
         miniCursosDao = database.minicursoDao();
         palestranteDao = database.palestranteDao();
         palestraDao = database.palestraDao();
+
+
+        //inicializando os repositorios
         miniCursoRepository = new MiniCursoRepository(semocApiService, miniCursosDao);
         palestranteRepository = new PalestranteRepository(semocApiService, palestranteDao);
         palestraRepository = new PalestraRepository(semocApiService,palestraDao);
 
-        mViewModel = new ViewModelProvider(this, new ViewModelProvider.Factory() {
-            @NonNull
-            @Override
-            public <T extends ViewModel> T create(@NonNull Class<T> modelClass) {
-                if (modelClass.isAssignableFrom(MiniCursoViewModel.class)) {
-                    return (T) new MiniCursoViewModel(miniCursoRepository);
-                }
-                throw new IllegalArgumentException("Unknown ViewModel class");
-            }
-        }).get(MiniCursoViewModel.class);
+        initializeViewModels();
 
+
+    }
+    // esses dois methodos seguintes foram criados apenas para retirar a redundancia na iniciacao de um view model
+
+    private void initializeViewModels() {
+        mViewModel = new ViewModelProvider(this, createViewModelFactory(new MiniCursoViewModel(miniCursoRepository)))
+                .get(MiniCursoViewModel.class);
         mViewModel.getMinicursos();
 
-        pViewModel = new ViewModelProvider(this, new ViewModelProvider.Factory() {
-            @NonNull
-            @Override
-            public <T extends ViewModel> T create(@NonNull Class<T> modelClass) {
-                if (modelClass.isAssignableFrom(PalestrantesViewModel.class)) {
-                    return (T) new PalestrantesViewModel(palestranteRepository);
-                }
-                throw new IllegalArgumentException("Unknown ViewModel class");
-            }
-        }).get(PalestrantesViewModel.class);
-
+        pViewModel = new ViewModelProvider(this, createViewModelFactory(new PalestrantesViewModel(palestranteRepository)))
+                .get(PalestrantesViewModel.class);
         pViewModel.getPalestrantes();
-        plViewModel = new ViewModelProvider(this, new ViewModelProvider.Factory() {
+
+        plViewModel = new ViewModelProvider(this, createViewModelFactory(new PalestraViewModel(palestraRepository)))
+                .get(PalestraViewModel.class);
+        plViewModel.getPalestras();
+    }
+
+    private ViewModelProvider.Factory createViewModelFactory(ViewModel viewModel) {
+        return new ViewModelProvider.Factory() {
             @NonNull
             @Override
             public <T extends ViewModel> T create(@NonNull Class<T> modelClass) {
-                if (modelClass.isAssignableFrom(PalestraViewModel.class)) {
-                    return (T) new PalestraViewModel(palestraRepository);
+                if (modelClass.isAssignableFrom(viewModel.getClass())) {
+                    return (T) viewModel;
                 }
                 throw new IllegalArgumentException("Unknown ViewModel class");
             }
-        }).get(PalestraViewModel.class);
-
-        plViewModel.getPalestras();
-
-
-
-    }
-
-    private void createNotificationChannel() {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            CharSequence name = "Canal de Notificação";
-            String description = "Descrição do Canal";
-            int importance = NotificationManager.IMPORTANCE_HIGH;
-            NotificationChannel channel = new NotificationChannel(CHANNEL_ID, name, importance);
-            channel.setDescription(description);
-
-            NotificationManager notificationManager = getSystemService(NotificationManager.class);
-            if (notificationManager != null) {
-                notificationManager.createNotificationChannel(channel);
-            }
-        }
+        };
     }
 
 
+    // aesse bad boy aqui que pede se pode mandar notificacao
     private void checkAndRequestPermissions() {
         if (ContextCompat.checkSelfPermission(this, android.Manifest.permission.POST_NOTIFICATIONS) != PackageManager.PERMISSION_GRANTED) {
             ActivityCompat.requestPermissions(this, new String[]{android.Manifest.permission.POST_NOTIFICATIONS}, PERMISSION_REQUEST_CODE);
@@ -169,3 +135,93 @@ private static final int PERMISSION_REQUEST_CODE = 1;
 
 
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//corre e diz pra ela que a casaaaa ta vazia e as cores que ela via desconhecem as tuas maaaoxxx ii o sol esta no abandono que nao te aceita como donooouuu e te banhaaaa no colch. iiiiii aaaaaaaaa tua viaaa se resume em sintir o seu perfuuumeeee
