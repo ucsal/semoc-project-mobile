@@ -87,6 +87,8 @@ public class MiniCursoFragment extends Fragment {
             int mDay = c.get(Calendar.DAY_OF_MONTH);
             // e um clicklistner do edit text que vou colocar a data, ele abre um data picker, eu formato a forma que eu quero exibir a data e tambem edito a forma com a qual eu quero fazer a pesquisa no banco de dados,
 
+
+
             DatePickerDialog datePickerDialog = new DatePickerDialog(getContext(),
                     (view, year, monthOfYear, dayOfMonth) -> {
                         @SuppressLint("DefaultLocale") String selectedDate = String.format("%02d/%02d/%04d", dayOfMonth, monthOfYear + 1, year);

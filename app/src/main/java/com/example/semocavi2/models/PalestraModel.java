@@ -6,15 +6,23 @@ import androidx.room.Index;
 import androidx.room.PrimaryKey;
 
 import com.google.gson.annotations.SerializedName;
+// uma ideia aqui seria ter apenas uma classe de eventos, com um enum definindo se eh minicurso ou palestra, mas fica pra uma proxima
 
 @Entity(tableName = "tb_palestra", indices = @Index(value = {"id"}, unique = true))
 public class PalestraModel {
 // vou receber esse cara por request, ent acho q n vou precisar gerar o id auto
     @PrimaryKey(autoGenerate = false)
 
+
     @SerializedName("id")
     @ColumnInfo(name = "id")
     private int id;
+
+
+    @SerializedName("isScheduled")
+    @ColumnInfo(name = "isScheduled")
+    private boolean isSchedule;
+
     @SerializedName("nome")
     @ColumnInfo(name = "nome")
     private String nome;
@@ -51,6 +59,15 @@ public class PalestraModel {
     @SerializedName("formato")
     @ColumnInfo(name = "formato")
     private String formato;
+
+
+    public boolean isSchedule() {
+        return isSchedule;
+    }
+
+    public void setSchedule(boolean schedule) {
+        isSchedule = schedule;
+    }
 
     public int getId() {
         return id;

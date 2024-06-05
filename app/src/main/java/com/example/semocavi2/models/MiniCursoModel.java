@@ -19,6 +19,9 @@ public class MiniCursoModel {
     @ColumnInfo(name = "id")
     private int id;
 
+    @SerializedName("isScheduled")
+    @ColumnInfo(name = "isScheduled")
+    private boolean isSchedule;
 
     @SerializedName("nome")
     @ColumnInfo(name = "nome")
@@ -57,6 +60,14 @@ public class MiniCursoModel {
     @ColumnInfo(name = "formato")
     private String formato;
 
+
+    public boolean isSchedule() {
+        return isSchedule;
+    }
+
+    public void setSchedule(boolean schedule) {
+        isSchedule = schedule;
+    }
 
     public int getId() {
         return id;

@@ -28,6 +28,10 @@ public class MiniCursoRepository {
         return miniCursosDao.getMinicursosByDate(date);
     }
 
+    public LiveData<List<MiniCursoModel>> getScheduleMinicursos(){
+        return miniCursosDao.getAllMiniCursosWhereIsScheduleIsTrue();
+    }
+
     public LiveData<MiniCursoModel> getMinicursoById(int id) {
         Log.d("id", "" + id);
         return miniCursosDao.getMinicursosById(id);

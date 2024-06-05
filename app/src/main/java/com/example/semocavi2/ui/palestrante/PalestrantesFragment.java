@@ -27,7 +27,7 @@ public class PalestrantesFragment extends Fragment {
     private ImageView palestranteImagemView;
     private PalestrantesViewModel pViewModel;
 
-
+// setando a toolbar
     private void setupToolbar(View view) {
         MaterialToolbar materialToolbar = view.findViewById(R.id.materialToolbar);
         materialToolbar.setNavigationOnClickListener(v -> {
@@ -56,11 +56,7 @@ public class PalestrantesFragment extends Fragment {
                     // Configuração dos dados do palestrante nas views
                     nomePalestranteTextView.setText(palestrante.getNome());
                     bioPalestranteTextView.setText(palestrante.getBio());
-
-
 //                    Picasso.get().load(palestrante.getFotoUrl()).into(palestranteImagemView);
-
-
                 // test de imagem com o picasso com link valido
                 String picassoImageUrl = "https://cdn2.thecatapi.com/images/3t0.jpg";
                 Picasso.get().load(picassoImageUrl).into(palestranteImagemView);

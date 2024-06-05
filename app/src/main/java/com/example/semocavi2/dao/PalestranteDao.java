@@ -27,4 +27,7 @@ public interface PalestranteDao {
     @Query("SELECT * FROM tb_palestrantes WHERE id = :id")
     LiveData<PalestranteModel> getPalestrantesById(int id);
 
+
+
+
 }

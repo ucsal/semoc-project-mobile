@@ -27,6 +27,9 @@ public interface PalestraDao {
     @Query("SELECT COUNT(*) FROM tb_palestra")
     int getCount();
 
+    // se n der erro eu sou o rei macaco
+    @Query("SELECT * FROM tb_palestra WHERE isScheduled = 1")
+    LiveData<List<PalestraModel>>getAllPalestraWhereIsScheduleIsTrue();
 
     @Query("SELECT * FROM tb_palestra WHERE id = :id")
     LiveData<PalestraModel>getPalestraById(int id);

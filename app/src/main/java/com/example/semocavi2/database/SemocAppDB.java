@@ -25,9 +25,6 @@ public abstract class SemocAppDB extends RoomDatabase {
 
     public abstract PalestranteDao palestranteDao();
 
-
-
-
     public static SemocAppDB getInstance(Context context) {
         if (INSTANCE == null) {
             synchronized (SemocAppDB.class) {
@@ -40,7 +37,7 @@ public abstract class SemocAppDB extends RoomDatabase {
         }
         return INSTANCE;
     }
-    // precisa configurar certinho para dar certo
+    // precisa configurar certinho para dar certo a atuializacao do banco
 //    static final Migration MIGRATION_1_2 = new Migration(1, 2) {
 //        @Override
 //        public void migrate(@NonNull SupportSQLiteDatabase database) {

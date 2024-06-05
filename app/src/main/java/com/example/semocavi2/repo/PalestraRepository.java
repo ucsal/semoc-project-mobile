@@ -28,6 +28,10 @@ public class PalestraRepository {
         this.executor = Executors.newSingleThreadExecutor();
     }
 
+    public LiveData<List<PalestraModel>> getSchedulePalestra(){
+        return palestraDao.getAllPalestraWhereIsScheduleIsTrue();
+    }
+
 public LiveData<List<PalestraModel>>getPalestraByData(String data){
         return palestraDao.getPalestraByData(data);
 }

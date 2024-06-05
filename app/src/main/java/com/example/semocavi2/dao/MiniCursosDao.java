@@ -7,6 +7,7 @@ import androidx.room.OnConflictStrategy;
 import androidx.room.Query;
 
 import com.example.semocavi2.models.MiniCursoModel;
+import com.example.semocavi2.models.PalestraModel;
 
 import java.util.List;
 
@@ -26,6 +27,11 @@ public interface MiniCursosDao {
 
         @Query("SELECT * FROM tb_mini_cursos WHERE data = :data")
         LiveData<List<MiniCursoModel>> getMinicursosByDate(String data);
+
+
+        @Query("SELECT * FROM tb_mini_cursos WHERE isScheduled = 1")
+        LiveData<List<MiniCursoModel>>getAllMiniCursosWhereIsScheduleIsTrue();
+
 
 
         @Query("SELECT * FROM tb_mini_cursos WHERE id = :id")
