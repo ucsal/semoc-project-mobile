@@ -86,24 +86,16 @@ public class MiniCursoDetailsFragment extends Fragment {
 // colocando os dados no main fragment
         if (getArguments() != null && getArguments().containsKey("miniCursoId")) {
             int miniCursoId = getArguments().getInt("miniCursoId");
-            observeMiniCursoData(miniCursoId, view);
             mViewModel.getMinicusosById(miniCursoId).observe(getViewLifecycleOwner(), miniCurso -> {
                 populateMiniCursoData(miniCurso, view);
                 observePalestranteData(miniCurso.getInstrutorId(), view);
-
             });
         } else {
             Log.d("MiniCursoDetail", "miniCursoId nulo");
         }
-
-
         return view;
     }
 
-
-    private void observeMiniCursoData(int miniCursoId, View view) {
-
-    }
 
     //aqui eu to verificando se os atributos do palestrante vem nulo, ele no caso nao vem nulo inteiro  por conta de alguma coisa maluco que eu fiz na hora de configurar o banco ent eu preciso forcar a exception a acontecer e tratar ela
     // se tiver nulo eu coloco que ainda nao foi definido um instrutor
@@ -121,6 +113,7 @@ public class MiniCursoDetailsFragment extends Fragment {
         });
     }
 
+    // eu to usando bundle mas acho que podeira ser intent, ou intent e so pra activitys sla
     private void setupPalestranteInfoButton(View view, int palestranteId) {
         buttonInfoPalestrante.setOnClickListener(v -> {
             Bundle bundle = new Bundle();
@@ -129,7 +122,7 @@ public class MiniCursoDetailsFragment extends Fragment {
             navController.navigate(R.id.navigation_palestrante, bundle);
         });
     }
-
+// ajeitando as notificacoes vagabundamente, na atividade apenas foi requerido usar notificacoes locais
     private void setupNotification(View view, MiniCursoModel miniCurso) {
         ImageView bellIcon = view.findViewById(R.id.imageView);
         bellIcon.setOnClickListener(v -> {
