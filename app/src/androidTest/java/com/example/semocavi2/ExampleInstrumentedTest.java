@@ -11,15 +11,18 @@ import org.junit.runner.RunWith;
 import static org.junit.Assert.*;
 
 /**
- * Instrumented test, which will execute on an Android device.
+ * Classe de teste instrumentado, que será executado em um dispositivo Android.
+ * 
+ * <p>Este teste verifica se o contexto da aplicação está correto.</p>
  *
- * @see <a href="http://d.android.com/tools/testing">Testing documentation</a>
+ * @see <a href="http://d.android.com/tools/testing">Documentação de Teste</a>
+ * @since 2024-06-05
  */
 @RunWith(AndroidJUnit4.class)
 public class ExampleInstrumentedTest {
     @Test
     public void useAppContext() {
-        // Context of the app under test.
+         // Contexto da aplicação em teste
         Context appContext = InstrumentationRegistry.getInstrumentation().getTargetContext();
         assertEquals("com.example.semocavi2", appContext.getPackageName());
     }
