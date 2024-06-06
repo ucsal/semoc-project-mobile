@@ -17,7 +17,7 @@ import java.util.List;
 
 /**
  * Adapter para exibir uma lista de palestras em um RecyclerView.
- * /
+ */
 
 public class PalestraAdapter  extends RecyclerView.Adapter<PalestraAdapter.PalestraViewHolder>
 {

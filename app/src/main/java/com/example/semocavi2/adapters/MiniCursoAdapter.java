@@ -17,7 +17,7 @@ import java.util.List;
 
 /**
  * Adapter para exibir uma lista de minicursos em um RecyclerView.
- /**   
+ **/
 public class MiniCursoAdapter extends RecyclerView.Adapter<MiniCursoAdapter.MiniCursoViewHolder> {
 
     /**
