@@ -14,23 +14,57 @@ import com.example.semocavi2.models.MiniCursoModel;
 
 import java.util.List;
 
+
+/**
+ * Adapter para exibir uma lista de minicursos em um RecyclerView.
+ /**   
 public class MiniCursoAdapter extends RecyclerView.Adapter<MiniCursoAdapter.MiniCursoViewHolder> {
 
+    /**
+     * Modelo de minicurso atual.
+     */
 
     private MiniCursoModel minicurso;
+
+     /**
+     * Lista de modelos de minicurso.
+     */
     private List<MiniCursoModel> minicursoList;
+
+    /**
+     * Listener para eventos de clique nos itens.
+     */
     private OnItemClickListener listener;
+    /**
+     * Interface para lidar com cliques nos itens.
+     */
 
     public interface OnItemClickListener{
+       /**
+         * Método chamado quando um item é clicado.
+        */
         void onItemClick(MiniCursoModel miniCursoModel);
     }
+
+     /**
+     * Define o listener para cliques nos itens.
+     */
     public void setOnItemClickListener(OnItemClickListener listener) {
         this.listener = listener;
     }
+
+     /**
+     * Define a lista de minicursos e notifica o adapter para atualizar a exibição.
+     */
+        
     public void setMinicursoList(List<MiniCursoModel> minicursoList) {
         this.minicursoList = minicursoList;
         notifyDataSetChanged();
     }
+
+     /**
+     * Cria novos view holders para o RecyclerView.
+     */
 
     @NonNull
     @Override
@@ -38,6 +72,10 @@ public class MiniCursoAdapter extends RecyclerView.Adapter<MiniCursoAdapter.Mini
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_minicurso, parent, false);
         return new MiniCursoViewHolder(view);
     }
+
+     /**
+     * Vincula os dados do minicurso ao view holder.
+     */
 
     @Override
     public void onBindViewHolder(@NonNull MiniCursoViewHolder holder, int position) {
@@ -47,14 +85,27 @@ public class MiniCursoAdapter extends RecyclerView.Adapter<MiniCursoAdapter.Mini
         holder.horariosTextView.setText(minicurso.getHora());
     }
 
+     /**
+     * Retorna o número de itens na lista de minicursos.
+     * 
+     * @return O número de itens na lista.
+     */
+
     @Override
     public int getItemCount() {
         return minicursoList != null ? minicursoList.size() : 0;
     }
 
-    // n pode ser static
+    /**
+     * ViewHolder para exibir informações de um minicurso.
+     */
+
      class MiniCursoViewHolder extends RecyclerView.ViewHolder {
         TextView nomeTextView,  horariosTextView, dateTextView;
+
+          /**
+         * Construtor do ViewHolder.
+         */
 
         public MiniCursoViewHolder(@NonNull View itemView) {
             super(itemView);

@@ -15,12 +15,29 @@ import com.example.semocavi2.ui.palestra.PalestraViewModel;
 
 import java.util.List;
 
+/**
+ * Adapter para exibir uma lista de palestras em um RecyclerView.
+ * /
+
 public class PalestraAdapter  extends RecyclerView.Adapter<PalestraAdapter.PalestraViewHolder>
 {
 
+     /**
+     * Modelo de palestra atual.
+     */
+
     private PalestraModel palestraModel;
+     /**
+     * Lista de modelos de palestras.
+     */
     private List<PalestraModel> palestraList;
+     /**
+     * Listener para eventos de clique nos itens.
+     */
     private OnItemClickListener listener;
+     /**
+     * Interface para lidar com cliques nos itens.
+     */
 
     @NonNull
     @Override
@@ -28,6 +45,9 @@ public class PalestraAdapter  extends RecyclerView.Adapter<PalestraAdapter.Pales
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_palestra, parent, false);
     return new PalestraViewHolder(view);
     }
+/**
+ * ViewHolder para exibir informações de uma palestra.
+ */
 
 
     @Override
