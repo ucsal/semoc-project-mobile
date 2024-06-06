@@ -91,27 +91,30 @@ public class PalestraDetaisFragment extends Fragment {
 //acho que esse vai funcionar sla
                 populatePalestraData(palestra, view);
                 ImageView agendarPalestras = view.findViewById(R.id.agendarPalestra);
-                if (palestra.isSchedule()){
-                    agendarPalestras.setVisibility(View.GONE);}
-                agendarPalestras.setOnClickListener(v -> {
+                if (palestra.isSchedule()) {
+                    agendarPalestras.setImageResource(R.drawable.img_10);
+                }else {
+                    agendarPalestras.setOnClickListener(v -> {
 
-                    plViewModel.setScheduleEvent(         getArguments().getInt("palestraId"));
-                    long delay = calculateDelay(palestra.getData());
-                    Data data = new Data.Builder()
-                            .putString("title", palestra.getNome())
-                            .putString("message", "Programado para: " + palestra.getData())
-                            .build();
+                        plViewModel.setScheduleEvent(         getArguments().getInt("palestraId"));
+                        long delay = calculateDelay(palestra.getData());
+                        Data data = new Data.Builder()
+                                .putString("title", palestra.getNome())
+                                .putString("message", "Programado para: " + palestra.getData())
+                                .build();
 
-                    // Crie o WorkRequest
-                    OneTimeWorkRequest notificationWork = new OneTimeWorkRequest.Builder(NotificationWorker.class)
-                            .setInitialDelay(delay, TimeUnit.MILLISECONDS)
-                            .setInputData(data)
-                            .build();
+                        // Crie o WorkRequest
+                        OneTimeWorkRequest notificationWork = new OneTimeWorkRequest.Builder(NotificationWorker.class)
+                                .setInitialDelay(delay, TimeUnit.MILLISECONDS)
+                                .setInputData(data)
+                                .build();
 
-                    // Agende o WorkRequest
-                    WorkManager.getInstance(getContext()).enqueue(notificationWork);
+                        // Agende o WorkRequest
+                        WorkManager.getInstance(getContext()).enqueue(notificationWork);
 
-                });
+                    });
+
+                }
 
 
                 observePalestranteData(palestra.getPalestrante_id(), view);
@@ -149,10 +152,7 @@ public class PalestraDetaisFragment extends Fragment {
         });
     }
 
-    // acho que ta funcionando
-    private void setupNotification(View view, PalestraModel palestra) {
 
-    }
 
     private long calculateDelay(String eventDate) {
         // eu poderia evitar fazer isso se eu convertesse a string para sdf quando eu recebesse os dados da api, mas nhe

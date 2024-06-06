@@ -20,6 +20,12 @@ public class MiniCursoViewModel extends ViewModel {
     public LiveData<List<MiniCursoModel>> getScheduleMiniCursos(){
         return repository.getScheduleMinicursos();
     }
+
+    public void setScheduleEvent(int id){
+        repository.setScheduleEvent(id);
+    }
+
+
     public LiveData<List<MiniCursoModel>> getMinicursos() {
         return minicursosLiveData;
     }

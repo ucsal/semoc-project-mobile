@@ -32,6 +32,11 @@ public class MiniCursoRepository {
         return miniCursosDao.getAllMiniCursosWhereIsScheduleIsTrue();
     }
 
+    public void setScheduleEvent(int id){
+        miniCursosDao.updateIsScheduled(id);
+    }
+
+
     public LiveData<MiniCursoModel> getMinicursoById(int id) {
         Log.d("id", "" + id);
         return miniCursosDao.getMinicursosById(id);

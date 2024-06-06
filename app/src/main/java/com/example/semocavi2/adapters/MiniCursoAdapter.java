@@ -18,38 +18,38 @@ import java.util.List;
 /**
  * Adapter para exibir uma lista de minicursos em um RecyclerView.
  **/
-public class MiniCursoAdapter extends RecyclerView.Adapter<MiniCursoAdapter.MiniCursoViewHolder> {
+    public class MiniCursoAdapter extends RecyclerView.Adapter<com.example.semocavi2.adapters.MiniCursoAdapter.MiniCursoViewHolder> {
 
-    /**
-     * Modelo de minicurso atual.
-     */
+        /**
+         * Modelo de minicurso atual.
+         */
 
-    private MiniCursoModel minicurso;
+        private MiniCursoModel minicurso;
 
-     /**
-     * Lista de modelos de minicurso.
-     */
-    private List<MiniCursoModel> minicursoList;
+        /**
+         * Lista de modelos de minicurso.
+         */
+        private List<MiniCursoModel> minicursoList;
 
-    /**
-     * Listener para eventos de clique nos itens.
-     */
-    private OnItemClickListener listener;
-    /**
-     * Interface para lidar com cliques nos itens.
-     */
+        /**
+         * Listener para eventos de clique nos itens.
+         */
+        private com.example.semocavi2.adapters.MiniCursoAdapter.OnItemClickListener listener;
+        /**
+         * Interface para lidar com cliques nos itens.
+         */
 
-    public interface OnItemClickListener{
-       /**
-         * Método chamado quando um item é clicado.
-        */
-        void onItemClick(MiniCursoModel miniCursoModel);
-    }
+        public interface OnItemClickListener{
+            /**
+             * Método chamado quando um item é clicado.
+             */
+            void onItemClick(MiniCursoModel miniCursoModel);
+        }
 
-     /**
-     * Define o listener para cliques nos itens.
-     */
-    public void setOnItemClickListener(OnItemClickListener listener) {
+        /**
+         * Define o listener para cliques nos itens.
+         */
+        public void setOnItemClickListener(com.example.semocavi2.adapters.MiniCursoAdapter.OnItemClickListener listener) {
         this.listener = listener;
     }
 

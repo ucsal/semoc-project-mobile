@@ -57,6 +57,7 @@
                 app:layout_constraintTop_toBottomOf="@+id/constraintLayout8">
 
                 <!-- Guideline vertical at 50% -->
+
                 <androidx.constraintlayout.widget.Guideline
                     android:id="@+id/guideline_vertical_50"
                     android:layout_width="wrap_content"
@@ -65,12 +66,6 @@
                     app:layout_constraintGuide_percent="0.5" />
 
                 <!-- Guideline horizontal at 50% -->
-                <androidx.constraintlayout.widget.Guideline
-                    android:id="@+id/guideline_horizontal_50"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    app:layout_constraintGuide_percent="0.5" />
 
                 <!-- ImageView top-left -->
 
@@ -82,7 +77,6 @@
                     android:layout_height="133dp"
                     android:clickable="true"
                     android:contentDescription="palestras"
-                    app:layout_constraintBottom_toTopOf="@+id/guideline_horizontal_50"
                     app:layout_constraintEnd_toStartOf="@+id/guideline_vertical_50"
                     app:layout_constraintHeight_percent="0.5"
                     app:layout_constraintHorizontal_bias="0.467"
@@ -97,37 +91,12 @@
                     android:layout_height="133dp"
                     android:clickable="true"
                     android:contentDescription="minicursos"
-                    app:layout_constraintBottom_toTopOf="@+id/guideline_horizontal_50"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHeight_percent="0.5"
                     app:layout_constraintStart_toStartOf="@+id/guideline_vertical_50"
                     app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintWidth_percent="0.5"
                     app:srcCompat="@drawable/img_2" />
-
-                <ImageView
-                    android:id="@+id/imageView17"
-                    android:layout_width="178dp"
-                    android:layout_height="133dp"
-                    android:layout_marginTop="16dp"
-                    android:src="@drawable/img_3"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toStartOf="@+id/guideline_vertical_50"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="@+id/guideline_horizontal_50"
-                    app:layout_constraintVertical_bias="1.0" />
-
-                <ImageView
-                    android:id="@+id/imageView18"
-                    android:layout_width="178dp"
-                    android:layout_height="133dp"
-                    android:src="@drawable/img_8"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="@+id/guideline_vertical_50"
-                    app:layout_constraintTop_toTopOf="@+id/guideline_horizontal_50" />
-
-
 
 
             </androidx.constraintlayout.widget.ConstraintLayout>

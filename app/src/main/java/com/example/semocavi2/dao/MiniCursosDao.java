@@ -33,6 +33,11 @@ public interface MiniCursosDao {
         LiveData<List<MiniCursoModel>>getAllMiniCursosWhereIsScheduleIsTrue();
 
 
+        @Query("UPDATE tb_mini_cursos SET isScheduled = 1 WHERE id = :id")
+        void updateIsScheduled(int id);
+
+
+
 
         @Query("SELECT * FROM tb_mini_cursos WHERE id = :id")
         LiveData<MiniCursoModel> getMinicursosById(int id);

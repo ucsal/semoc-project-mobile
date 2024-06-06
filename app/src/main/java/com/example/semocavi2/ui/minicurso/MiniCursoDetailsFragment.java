@@ -19,14 +19,25 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
+import androidx.work.Data;
+import androidx.work.OneTimeWorkRequest;
+import androidx.work.WorkManager;
 
 
 import com.example.semocavi2.R;
 
 import com.example.semocavi2.models.MiniCursoModel;
+import com.example.semocavi2.notificationWorker.NotificationWorker;
 import com.example.semocavi2.ui.notifications.NotificationHelper;
 import com.example.semocavi2.ui.palestrante.PalestrantesViewModel;
 import com.google.android.material.appbar.MaterialToolbar;
+
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.Locale;
+import java.util.concurrent.TimeUnit;
 
 
 public class MiniCursoDetailsFragment extends Fragment {
@@ -60,6 +71,7 @@ public class MiniCursoDetailsFragment extends Fragment {
         horaTextView = view.findViewById(R.id.hora);
         bioTextView = view.findViewById(R.id.instutorBio);
         buttonInfoPalestrante = view.findViewById(R.id.maisInfo);
+
     }
 
     //populando as views
@@ -71,7 +83,6 @@ public class MiniCursoDetailsFragment extends Fragment {
         nivelTextView.setText(String.format("Nível: %s", miniCurso.getNivel()));
         dataTextView.setText(String.format("Data: %s", miniCurso.getData()));
         horaTextView.setText(String.format("Hora: %s", miniCurso.getHora()));
-        setupNotification(view, miniCurso);
     }
 
     @Override
@@ -88,6 +99,33 @@ public class MiniCursoDetailsFragment extends Fragment {
             int miniCursoId = getArguments().getInt("miniCursoId");
             mViewModel.getMinicusosById(miniCursoId).observe(getViewLifecycleOwner(), miniCurso -> {
                 populateMiniCursoData(miniCurso, view);
+
+                ImageView agendarMinicurso = view.findViewById(R.id.agendarMiniCurso);
+                if (miniCurso.isSchedule()) {
+                    agendarMinicurso.setImageResource(R.drawable.img_10);
+                }else {
+                    agendarMinicurso.setOnClickListener(v -> {
+
+                        mViewModel.setScheduleEvent(         getArguments().getInt("miniCursoId"));
+                        long delay = calculateDelay(miniCurso.getData());
+                        Data data = new Data.Builder()
+                                .putString("title", miniCurso.getNome())
+                                .putString("message", "Programado para: " + miniCurso.getData())
+                                .build();
+
+                        // Crie o WorkRequest
+                        OneTimeWorkRequest notificationWork = new OneTimeWorkRequest.Builder(NotificationWorker.class)
+                                .setInitialDelay(delay, TimeUnit.MILLISECONDS)
+                                .setInputData(data)
+                                .build();
+
+                        // Agende o WorkRequest
+                        WorkManager.getInstance(getContext()).enqueue(notificationWork);
+
+                    });
+
+                }
+
                 observePalestranteData(miniCurso.getInstrutorId(), view);
             });
         } else {
@@ -122,25 +160,27 @@ public class MiniCursoDetailsFragment extends Fragment {
             navController.navigate(R.id.navigation_palestrante, bundle);
         });
     }
-// ajeitando as notificacoes vagabundamente, na atividade apenas foi requerido usar notificacoes locais
-    private void setupNotification(View view, MiniCursoModel miniCurso) {
-        ImageView bellIcon = view.findViewById(R.id.agendarMiniCurso);
-        bellIcon.setOnClickListener(v -> {
-            Context context = getContext();
-            NotificationHelper.createNotificationChannel(context);
 
-            NotificationCompat.Builder builder = new NotificationCompat.Builder(context, NotificationHelper.getChannelId())
-                    .setSmallIcon(R.drawable.bell_notification)
-                    .setContentTitle(miniCurso.getNome())
-                    .setContentText("Programado para: " + miniCurso.getData())
-                    .setPriority(NotificationCompat.PRIORITY_DEFAULT)
-                    .setLargeIcon(BitmapFactory.decodeResource(getResources(), R.drawable.ic_launcher_foreground))
-                    .setAutoCancel(true);
+    private long calculateDelay(String eventDate) {
+        // eu poderia evitar fazer isso se eu convertesse a string para sdf quando eu recebesse os dados da api, mas nhe
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
+        try {
+            Date eventDateTime = sdf.parse(eventDate);
+            long currentTime = System.currentTimeMillis();
 
-            NotificationManager notificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
-            notificationManager.notify(1, builder.build());
+            // Ajustar para meia-noite do dia do evento
+            Calendar eventCalendar = Calendar.getInstance();
+            eventCalendar.setTime(eventDateTime);
+            eventCalendar.set(Calendar.HOUR_OF_DAY, 0);
+            eventCalendar.set(Calendar.MINUTE, 0);
+            eventCalendar.set(Calendar.SECOND, 0);
+            eventCalendar.set(Calendar.MILLISECOND, 0);
 
-            bellIcon.setOnClickListener(null);
-        });
+            return eventCalendar.getTimeInMillis() - currentTime;
+        } catch (ParseException e) {
+            e.printStackTrace();
+            return 0;
+        }
     }
+
 }

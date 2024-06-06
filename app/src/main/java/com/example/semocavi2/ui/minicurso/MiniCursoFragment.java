@@ -44,6 +44,7 @@ public class MiniCursoFragment extends Fragment {
         setupToolbar(view);
         setupRecyclerView(view);
         setupDatePicker();
+        setUpAgendadosButton(view);
 
         mViewModel = new ViewModelProvider(requireActivity()).get(MiniCursoViewModel.class);
         mViewModel.getMinicursos().observe(getViewLifecycleOwner(), minicursos -> {
@@ -65,7 +66,7 @@ public class MiniCursoFragment extends Fragment {
 
     private void initializeViews(View view) {
         editTextDate = view.findViewById(R.id.editTextDate);
-        filtroAgendados = view.findViewById(R.id.filtrarAgendados);
+        filtroAgendados = view.findViewById(R.id.minicursosAgendados);
 
     }
 
@@ -83,10 +84,10 @@ public class MiniCursoFragment extends Fragment {
 
         filtroAgendados.setOnClickListener(v -> {
 
-            mViewModel.getScheduleMiniCursos().observe(getViewLifecycleOwner(), palestras -> {
+            mViewModel.getScheduleMiniCursos().observe(getViewLifecycleOwner(), minicursos -> {
 
-                if (!palestras.isEmpty()){
-                    adapter.setMinicursoList(palestras);
+                if (!minicursos.isEmpty()){
+                    adapter.setMinicursoList(minicursos);
                 }else {
                     Log.d("getScheduleMiniCursos", "lista vazia");
                 }
