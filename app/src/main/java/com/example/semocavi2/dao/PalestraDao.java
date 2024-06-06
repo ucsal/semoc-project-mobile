@@ -34,6 +34,10 @@ public interface PalestraDao {
     @Query("SELECT * FROM tb_palestra WHERE id = :id")
     LiveData<PalestraModel>getPalestraById(int id);
 
+    @Query("UPDATE tb_palestra SET isScheduled = 1 WHERE id = :id")
+    void updateIsScheduled(int id);
+
+
 
 
 }

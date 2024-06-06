@@ -32,6 +32,9 @@ public class PalestraRepository {
         return palestraDao.getAllPalestraWhereIsScheduleIsTrue();
     }
 
+    public void setScheduleEvent(int id){
+        palestraDao.updateIsScheduled(id);
+    }
 public LiveData<List<PalestraModel>>getPalestraByData(String data){
         return palestraDao.getPalestraByData(data);
 }

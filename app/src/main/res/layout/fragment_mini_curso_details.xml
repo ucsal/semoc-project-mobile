@@ -13,7 +13,7 @@
         android:layout_height="wrap_content"
         android:background="@color/teal_200"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:menu="@menu/top_app_bar_menu"
@@ -183,7 +183,7 @@
     </ScrollView>
 
     <ImageView
-        android:id="@+id/imageView"
+        android:id="@+id/agendarMiniCurso"
         android:layout_width="29dp"
         android:layout_height="42dp"
         android:layout_marginTop="4dp"

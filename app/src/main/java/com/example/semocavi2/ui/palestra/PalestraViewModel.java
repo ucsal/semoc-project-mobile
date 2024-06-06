@@ -16,14 +16,21 @@ public class PalestraViewModel extends ViewModel {
     public PalestraViewModel(PalestraRepository palestraRepository) {
         this.palestraRepository = palestraRepository;
         this.palestrasLiveData = palestraRepository.getPalestras();
+    }
 
+    public LiveData<List<PalestraModel>> getSchedulePalestras() {
+        return palestraRepository.getSchedulePalestra();
     }
 
     public LiveData<List<PalestraModel>> getPalestrasByData(String data) {
         return palestraRepository.getPalestraByData(data);
     }
 
-    public LiveData<PalestraModel> getPalestraById(int id){
+    public void setScheduleEvent(int id){
+        palestraRepository.setScheduleEvent(id);
+    }
+
+    public LiveData<PalestraModel> getPalestraById(int id) {
         return palestraRepository.getPalestraById(id);
 
     }

@@ -124,7 +124,7 @@ public class MiniCursoDetailsFragment extends Fragment {
     }
 // ajeitando as notificacoes vagabundamente, na atividade apenas foi requerido usar notificacoes locais
     private void setupNotification(View view, MiniCursoModel miniCurso) {
-        ImageView bellIcon = view.findViewById(R.id.imageView);
+        ImageView bellIcon = view.findViewById(R.id.agendarMiniCurso);
         bellIcon.setOnClickListener(v -> {
             Context context = getContext();
             NotificationHelper.createNotificationChannel(context);

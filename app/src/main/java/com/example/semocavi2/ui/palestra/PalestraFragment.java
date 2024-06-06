@@ -18,6 +18,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
+import android.widget.ImageView;
 
 import com.example.semocavi2.R;
 import com.example.semocavi2.adapters.PalestraAdapter;
@@ -29,6 +30,8 @@ public class PalestraFragment extends Fragment {
 
     private EditText editTextDate;
     private PalestraViewModel pViewModel;
+
+    private ImageView filtroAgendados;
     private PalestraAdapter adapter;
 
     @Override
@@ -39,6 +42,7 @@ public class PalestraFragment extends Fragment {
         setupToolbar(view);
         setupRecyclerView(view);
         setupDatePicker();
+        setUpAgendadosButton(view);
 
         pViewModel = new ViewModelProvider(requireActivity()).get(PalestraViewModel.class);
         pViewModel.getPalestras().observe(getViewLifecycleOwner(), palestras -> {
@@ -56,8 +60,28 @@ public class PalestraFragment extends Fragment {
         return view;
     }
 
+    // vau funcionar amem, e o melhor q eu posso fazer
+    private void setUpAgendadosButton(View view) {
+
+
+        filtroAgendados.setOnClickListener(v -> {
+
+            pViewModel.getSchedulePalestras().observe(getViewLifecycleOwner(), palestras -> {
+
+                if (!palestras.isEmpty()){
+                    adapter.setPalestraList(palestras);
+                }else {
+                    Log.d("getSchedulePalestras", "lista vazia");
+                }
+            });
+
+        });
+
+    }
+
     private void initializeViews(View view) {
         editTextDate = view.findViewById(R.id.editTextDate);
+        filtroAgendados = view.findViewById(R.id.filtrarAgendados);
     }
 
     private void setupToolbar(View view) {

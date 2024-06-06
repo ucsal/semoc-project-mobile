@@ -8,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
+import android.widget.ImageView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -28,6 +29,7 @@ public class MiniCursoFragment extends Fragment {
     private EditText editTextDate;
     private MiniCursoViewModel mViewModel;
     private MiniCursoAdapter adapter;
+    private ImageView filtroAgendados;
 
     @Override
     public void onDestroyView() {
@@ -48,6 +50,8 @@ public class MiniCursoFragment extends Fragment {
             adapter.setMinicursoList(minicursos);
         });
 
+
+
         adapter.setOnItemClickListener(miniCurso -> {
             Bundle bundle = new Bundle();
             bundle.putInt("miniCursoId", miniCurso.getId());
@@ -61,6 +65,8 @@ public class MiniCursoFragment extends Fragment {
 
     private void initializeViews(View view) {
         editTextDate = view.findViewById(R.id.editTextDate);
+        filtroAgendados = view.findViewById(R.id.filtrarAgendados);
+
     }
 
     private void setupToolbar(View view) {
@@ -72,12 +78,32 @@ public class MiniCursoFragment extends Fragment {
         });
     }
 
+    private void setUpAgendadosButton(View view) {
+
+
+        filtroAgendados.setOnClickListener(v -> {
+
+            mViewModel.getScheduleMiniCursos().observe(getViewLifecycleOwner(), palestras -> {
+
+                if (!palestras.isEmpty()){
+                    adapter.setMinicursoList(palestras);
+                }else {
+                    Log.d("getScheduleMiniCursos", "lista vazia");
+                }
+            });
+
+        });
+
+    }
+
     private void setupRecyclerView(View view) {
         RecyclerView recyclerView = view.findViewById(R.id.recycler_view_minicursos);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         adapter = new MiniCursoAdapter();
         recyclerView.setAdapter(adapter);
     }
+
+
 
     private void setupDatePicker() {
         editTextDate.setOnClickListener(v -> {
@@ -86,9 +112,6 @@ public class MiniCursoFragment extends Fragment {
             int mMonth = c.get(Calendar.MONTH);
             int mDay = c.get(Calendar.DAY_OF_MONTH);
             // e um clicklistner do edit text que vou colocar a data, ele abre um data picker, eu formato a forma que eu quero exibir a data e tambem edito a forma com a qual eu quero fazer a pesquisa no banco de dados,
-
-
-
             DatePickerDialog datePickerDialog = new DatePickerDialog(getContext(),
                     (view, year, monthOfYear, dayOfMonth) -> {
                         @SuppressLint("DefaultLocale") String selectedDate = String.format("%02d/%02d/%04d", dayOfMonth, monthOfYear + 1, year);

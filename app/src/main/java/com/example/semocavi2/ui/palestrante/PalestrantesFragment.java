@@ -30,11 +30,16 @@ public class PalestrantesFragment extends Fragment {
 // setando a toolbar
     private void setupToolbar(View view) {
         MaterialToolbar materialToolbar = view.findViewById(R.id.materialToolbar);
+
+
         materialToolbar.setNavigationOnClickListener(v -> {
             NavController navController = Navigation.findNavController(v);
-            navController.navigate(R.id.navigation_home);
-            navController.popBackStack(R.id.navigation_palestras_details, true);
-        });
+            if (!navController.popBackStack()) {
+                navController.navigate(R.id.navigation_minicursos_details);
+            }
+
+            });
+
     }
 
     @Override
