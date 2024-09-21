@@ -1,6 +1,4 @@
-Aqui está um modelo de README para o seu projeto mobile SEMOC:
 
----
 
 # Aplicativo Mobile SEMOC
 
