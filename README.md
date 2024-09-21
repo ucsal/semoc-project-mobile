@@ -33,6 +33,4 @@ Este é o aplicativo oficial da Semana de Mobilização Científica (SEMOC) dese
 ## Licença
 Este projeto está licenciado sob os termos da [Licença MIT](LICENSE).
 
----
 
-Esse README está pronto para fornecer informações básicas sobre o projeto. Se quiser adicionar ou modificar algo, é só me avisar!
